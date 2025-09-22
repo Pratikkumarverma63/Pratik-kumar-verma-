@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        dl{
+            display: grid;
+            grid-template-columns: 3fr 9fr;
+
+        }
+        dt{
+            background-color: black;
+            color: white;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        dd{ 
+            background-color: gray;
+            color: white;
+            padding: 5px;
+            margin-bottom: 10px;
+            width: 200px;
+        }
+        fieldset{
+            margin-bottom: 20px;
+            border-radius: 10px;
+            width: 500px;
+            box-shadow: 10px 10px 10px;
+            background-image:url("16953-3840x2160-desktop-4k-lake-background.jpg") ;
+            background-size: cover;
+        }
+        legend{
+            text-align: center;
+            background-color: black;
+            color: white;
+            border-radius: 5px;
+           
+
+        }
+        /* div{
+            background-color: black;
+            color: white;
+            margin-left: 30px ;
+
+        }
+            span{
+                background-color: gray;
+                color: white; 
+                display: block;
+            }
+            fieldset{ 
+                display: flex;
+
+            }
+            .e{
+                background-color: black;
+            } */
+    </style>
+</head>
+<body>
+    <fieldset>
+        <legend>Person detail</legend>
+        <!-- <div class="p">
+            <span class="e">first name</span>
+            <span class="e">last name</span>
+            <span class="e">Age</span>
+
+        </div>
+        <div> 
+            <span>some name</span>
+            <span>some name</span>
+            <span>some age</span>
+        </div> -->
+
+        <dl>
+            <dt>first name</dt>
+            <dd>some name</dd>
+            <dt>last name</dt>
+            <dd>some name</dd>
+            <dt>age</dt>
+            <dd>some age</dd>
+        </dl>
+    </fieldset>
+
+     <fieldset>
+        <legend>Contact detail</legend>
+
+        <dl>
+            <dt>City</dt>
+            <dd>somecity</dd>
+            <dt>State</dt>
+            <dd>somestate</dd>
+            <dt>PostalCode</dt>
+            <dd>somepostalcode</dd>
+        </dl>
+    </fieldset>
+</body>
+</html>
