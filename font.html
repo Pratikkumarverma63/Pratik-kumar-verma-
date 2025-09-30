@@ -4,10 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Amazon Style Offers</title>
+
+   <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css"/>
+
   <style>
     body {
       font-family: Arial, sans-serif;
-     background: url(https://img.freepik.com/free-vector/abstract-bright-geometric-line-modern-wallpaper-design_1017-60099.jpg?semt=ais_hybrid&w=740&q=80);
+     background: url(https://img.freepik.com/free-vector/abstract-bright-geometric-line-modern-wallpaper-design_1017-60099.jpg?semt=ais_hybrid&w=740&q=80) ;
+    background-repeat: no-repeat ;
+    background-size:cover;
       margin: 0;
       padding: 20px;
     }
@@ -19,6 +24,7 @@
       margin-bottom: 30px;
        display: flex;
        gap: 45px;
+       margin-left: 200px;
      
         
     
@@ -26,6 +32,8 @@
     }
      .offer-banner img{
       border: 5px solid transparent;
+      border-radius: 10px;
+      box-shadow:0px 0px 5px 5px ;
      }
     .offer-banner h2 {
       font-size: 28px;
@@ -40,6 +48,7 @@
       grid-template-columns: 1fr 1fr 1fr 1fr;
       gap: 20px;
       justify-content: center;
+      ;
     }
     .card {
       background: #fff;
@@ -48,6 +57,8 @@
       border: 1px solid #ddd;
       border-radius: 8px;
       text-align: center;
+      box-shadow: 0 0 1px 1px;
+      
     }
     .card h3 {
       font-size: 16px;
@@ -78,9 +89,78 @@
     .explore:hover {
       text-decoration: underline;
     }
+
+     .icons{
+      display: flex;
+     accent: color 0.5em;;
+      
+        justify-content: space-between;
+        font-size: 20px;
+        font-family: Arial, Helvetica, sans-serif;
+        margin-bottom: 100px;
+        margin-top: 0px;
+        border-bottom: 2px solid black;
+        padding: 10px;
+      
+        
+     }
+    
+
+      .cart{
+        background-color: red;
+        border-radius: 50%;
+        padding: 2px 6px;
+        color: white;
+        font-size: 14px;
+        vertical-align: super;
+        margin-left: 2px;
+    }
+    
+    .icons a{
+      color: black;
+      margin-right: 30px;
+      text-decoration: none;
+
+    }
   </style>
 </head>
 <body>
+   <header class="icons">
+    <div>
+       <span><b>Shopper:</b></span>
+       </div>
+
+
+
+
+
+       <div>
+    <nav>
+    
+        
+     
+        <a href="#">Home</a>
+        <a href="#">Shop</a>
+        <a href="#">Pages</a>
+       
+       
+    
+    </nav>
+     </div>
+
+
+
+
+     <div >
+    
+        <a href="#" class="bi bi-person-lines-fill">contact</a>
+        <a href="#" class="bi bi-search">search</a>
+        <a href="#" class="bi bi-heart-fill">wishlist</a>
+        <a href="#" class="bi bi-cart-fill"><span class="cart">2</span></a>
+     </div>
+        </header>
+
+       
 
   <div class="offer-banner">
     <span>
@@ -117,7 +197,7 @@
           <p>Plants & more</p>
         </div>
       </div>
-      <p class="explore">Explore all</p>
+      <a href="https://www.flipkart.com/sale-tbbd-store?fm=neo%2Fmerchandising&iid=M_a8953b84-4fe8-40a1-8923-c84bbc9691e0_1_VMDN1VE1AUK9_MC.DF4ISSCHXW05&otracker=hp_rich_navigation_8_1.navigationCard.RICH_NAVIGATION_Furniture_DF4ISSCHXW05&otracker1=hp_rich_navigation_PINNED_neo%2Fmerchandising_NA_NAV_EXPANDABLE_navigationCard_cc_8_L0_view-all&cid=DF4ISSCHXW05" class="explore">Explore all</a>
     </div>
 
     <!-- Card 2 -->
@@ -141,7 +221,7 @@
           <p>Noise</p>
         </div>
       </div>
-      <p class="explore">Explore all</p>
+      <a href="https://www.flipkart.com/search?q=headphone&sid=0pm%2Cfcn&as=on&as-show=on&otracker=AS_QueryStore_OrganicAutoSuggest_1_4_na_na_na&otracker1=AS_QueryStore_OrganicAutoSuggest_1_4_na_na_na&as-pos=1&as-type=RECENT&suggestionId=headphone%7CHeadset&requestId=9ec5fb01-1706-4202-8240-aa905327b24a&as-searchtext=head" class="explore">Explore all</a>
     </div>
 
     <!-- Card 3 -->
@@ -165,12 +245,12 @@
           <p>Iron</p>
         </div>
       </div>
-      <p class="explore">Explore all</p>
+      <a href="https://www.flipkart.com/tvs-and-appliances-new-clp-store?fm=neo%2Fmerchandising&iid=M_4a027b21-10d3-4969-b159-822f7bc5ff01_1_VMDN1VE1AUK9_MC.8TVKUWT87M16&otracker=hp_rich_navigation_3_1.navigationCard.RICH_NAVIGATION_TVs%2B%26%2BAppliances_8TVKUWT87M16&otracker1=hp_rich_navigation_PINNED_neo%2Fmerchandising_NA_NAV_EXPANDABLE_navigationCard_cc_3_L0_view-all&cid=8TVKUWT87M16" class="explore">Explore all</a>
     </div>
 
     <!-- Card 4 -->
     <div class="card">
-      <h3>Starting at ₹399 | Amazon Fashion</h3>
+      <h3>Starting at ₹399 | Flipkart Fashion</h3>
       <div class="grid">
         <div>
           <img src="https://m.media-amazon.com/images/I/71QoSodkA6L._UY1100_.jpg" alt="Jeans">
@@ -189,7 +269,7 @@
           <p>Shoes</p>
         </div>
       </div>
-      <p class="explore">Explore all</p>
+      <a href="https://www.flipkart.com/clothing-and-accessories/topwear/pr?sid=clo%2Cash&otracker=CLP_BANNER" class="explore">Explore all</a>
     </div>
 
   </div>
