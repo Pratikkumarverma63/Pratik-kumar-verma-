@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"/>
+    <style>
+        header{
+            font-size: 30px;
+
+            display:flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+        .a{display:flex;
+        gap:10px;
+    margin-right:100px;}
+
+        .logo{
+            display: flex;
+        }
+
+        .logo span{
+            margin-left: 20px;
+        }
+
+        .d{display: flex;
+            margin-right: 200px;
+        justify-content: space-between;}
+
+        .search{width: 600px;
+        height: 20px;
+        border: 1px solid black;
+            border-radius: 25px;
+            color: grey;
+            
+            padding:5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 25px;
+        }
+        .profile img{
+            height: 200px;
+          align-items: center;
+          width: 1250px;
+          margin-left: 10px;
+          
+           
+        }
+
+        section{
+           
+             
+           
+            margin-top: 20px; 
+         
+           
+        }
+        
+        .q{ 
+            font-size: 15px;
+            margin-bottom: 25px;
+            margin-top: 15px;
+            
+           
+           
+        }
+
+        .q span{
+            margin: 10px;
+            font-size: 20px;
+        }
+        
+        .s{
+            display: flex;
+        }
+       
+
+
+
+     article{
+         font-family:arial;
+            margin-top: 20px;
+     }
+
+     
+
+
+
+     .name{
+            font-size: 25px;
+            font-weight: bold;
+            margin-bottom: 15px;
+     }
+
+
+
+        .views{
+            font-size:large;
+            margin-bottom: 20px;
+        }
+
+      .rounded{ 
+        border-radius: 50%;
+       
+        margin-left: 150px;
+      }
+
+
+        .date{
+           
+             font-size:20px;
+            margin-bottom: 15px;
+        }
+
+        .link{
+              font-size:15px;
+            margin-bottom: 15px;
+        }
+        .link a{
+           
+            color: blue;
+        }
+        .sub{
+            margin-top: 15px;
+            width: 150px;
+            padding: 5px;
+            margin-left: 300px;
+            border-radius: 15px;
+            border: 1px solid black;
+            background-color: gray;
+            
+        }
+
+        .sub span{
+          
+            margin-left: 5px;
+        }
+
+
+
+
+        .cat{
+            display: flex;
+            font-size: 25px;
+            color:gray;
+            text-transform: capitalize;
+            margin-top: 15px;
+            padding: 10px;
+        }
+        .cat span{
+            margin-left: 150px;
+        }
+
+        .videos div{
+            display: grid;
+            grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
+            margin-left: 30px;
+            margin-bottom: 20px;
+            margin-right: 2px;
+        }
+         
+
+
+        iframe{
+            width: 230px;
+            height: 120px;
+
+           
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="a">
+            <span class="bi bi-justify"></span>
+            <span class="bi bi-youtube"></span>
+        </div>
+        <div class="d">
+        <div class="search">
+            <span>Search</span>
+            <span class="bi bi-search"></span>
+            </div>
+            <span class="bi bi-mic-fill"></span>
+</div>
+<div class="w">
+         <div class="logo">
+            <span class="bi bi-camera-video-fill" ></span>
+            <span class="bi bi-bell-fill"></span>
+            </div>
+            </header>
+      
+   <section>
+    <nav>
+        <div class="s">
+            <div class="b">
+        <div class="q">
+            <span class="bi bi-house-door"></span>
+            <span>Home</span>
+            
+        </div>
+        <div class="q">
+            <span class="bi bi-film" ></span>
+            <span>Shorts</span>
+        </div>
+        <div class="q">
+            <span class="bi bi-collection-play"></span>
+            <span>Subscriptions</span>
+        </div>
+    </div>
+            <p class="profile">
+                
+                <img src="https://cdn.pixabay.com/photo/2014/10/14/20/14/library-488690_1280.jpg">
+           
+            </p>
+            </div>
+    </nav>
+
+    <article>
+        <div>
+            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgWFgkWDSIPGRgYGCcgFRsiIB0iIiAdISAhISgmHyExJx4fJT0tJzUtOi8vIyY5RDUwNyo1OjUBCgoKDQ0OFhAQGCseFx0rKzc3KysuLy0tNy4tMjcvNystKzctLTctLi42LTUtNy4rNystLSsvLSs4LS0tListLf/AABEIAMgAyAMBIgACEQEDEQH/xAAcAAEAAwADAQEAAAAAAAAAAAAABAUGAgMHAQj/xAA4EAACAQMDAQYEAwYHAQAAAAAAAQIDBAUGERIhEyIxQVFhBzJxgRSRoRYkQlLw8RUzYnKSk7Ej/8QAGQEBAAMBAQAAAAAAAAAAAAAAAAEDBAIF/8QAHxEBAQEAAwACAwEAAAAAAAAAAAECAxESITFBUZEi/9oADAMBAAIRAxEAPwDBgA9ZhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADX6R0n/AIhSV7fU3KlwdSMN2k4rxqTa6qO6aSj1m09ttmzIHvejpRloh5GvGMJ1KLb26RjGCcIRW78Eor7t+pTzauYs4891FxeJwbpWkKd04Kst6fG2jCnPputnOlJttde9JtnRqXQNpVt51FSUklvzpwUa8ffjBKFVe20X6NvoWum6Nrd4PBTvL6DVC2hWUE0uMlT47z6t9N36Gmd5aqiqzuYdk3spclx+m5k96l+F8zLPl+Zstjq2LvZ2tdp9FKMl8sovrGUX5po0umtMWGTwdle3Ep9rPLxs3s+nFxT6dPE+/FT/AOOpJWMIR7GC7SDXzbVO84v2UnJr/cRsBqulicRaWM7RylTyavd09k0klx+vQ1261iWKOpNdVfXPw8trXM5KlUnOWPjYTuaUk1vyg0nCT28m3+h8yujsDjMJTup/iZp26rdvTSlRk34xaS3ivd+viyHY/EKpbxztCrbOVrcTnUguXWm577/Vdf09zhaa3sLLD16Fnh3C6qWv4eSVT93e66z4fzf1uV9crr/DllcPpW20zZ5ahSuuVxzhTTnHuyi2k5dPDdeRZUtIaa/bGtpyqrjtNucJKceO3ZqTT7vjvv8AoZG/z1O60xiMRGg1O3qSm5b9JcpN9F9y3/baj+3f7Sfgpdn2fDhy73ycfHY6ud9f1HeXTcYbB3Wmsvl8XGtHsalOnFVJJ/NJKW+y9+hOo6b0/Qr6eoXyrud3bQknCUdoym0nvvH5epTaZ1Ha420v8dlbDtsdXalKKlxknF7pp/14HdkdW07vUWJvqVlwsbXhGnTUt3xhLfq35smzf0jvP2vbPSmnL3UGSxltRuW7ajOUlzjynKMkko9PPr4+xnL3A0rjVVrh8da1qLm4xar7Oab6uXd8tupMxer7a01DmslXs5ujcwlDjGe0oqT38Squ8zQo563ymEpTg4NSSqT5ttPzfpt02GZuUtjTQ0vpjJX93g8PdV/8XpxltOfHsZyh80Vt1X9eJxr6Ww9npmxyVaxu6k6lp20pU3Hs4Pb+LddEdU9b4u3q3WRxOB7PM1YuMqjqNwi5fNKMfV/Yps5qWeRxOKsKCnCFG27GXe7s/DrsvoRJuptyz4ANCoAAAAAAAAAAA99+HN5arCULC2qN0lDtaTk95OLe8k2ku9GblF+3F+Z4EXWntRXOFnwS5W3Pnx5bSjLw5Qkvllt08010aZVy49z4WY11Xt+WqQxGep37hvSr27t5L+acN5U19Wu0j+RAwv7vRp4K+qR2ta7qzfhHs4JTpv2Sc4/9cjNw+IljdUKUby4T4TVSPa0HzUo9U96c+Mn9olNntd0rivVr2sHO6lGMXJw4Ue624vhyk5tOT25vb/T0RmnFq/HS27n2r/iXXo3ee/FxlLt5x5OL8Iw2SprbxUmlzaf8yJ+ksVYXelrS4uLSMqzz9Og5NdXB8N4/TqzDXFerc16le4qOVWUuUm31bfi2XmI1TcYvFUcfSt4uEb+N9u99948e79O6aNYvmSKZqd916TDROJnrBXVpaQni+EqVSnt3adSKW3Ty3XX+6KSrpTH5PQ2MlY0oxzTt5V4pLvVVF7Tj7vqtv7lBjPiBksdm8jkqVGLjXfKVNt8E/Jr3IUtXXypYSNvBQqWe/CS8Zcmt+Xt02+5XMcn7d+stxltO4OwzebyVXHKVra2lOcaEekZSlv1ft0ImKjp/MY6jqCrhadFUb2NvVgutKcZ7R328mual9vcz9TX+Slnq+Vjb0+NSiqNSlJb0pxXqn9WQs/qy4y9hTx1CzpULCM+07OlHZOXq/Umce/yj1lqIaXtsPX1TdXdkp06clQt4yW6cqjTht6tcoL7sm57T2JxuEl+Cx0Z5Cx7OpW5Lu1VKPeT9V5+2xnbn4jZC7hjIXNpCSoVY1vF9+UY7Rcvv3vqdVL4iZt3N3K9mqtrVhKDpS+RKXpt16LoR45PtPrC9z9TFUcdp50dP28Z3cFKTUesOsfl/N+J35TCYXD32pM1XxkalChUp0qdDwppyhDeTXpvL/wBMRf6kr3tDC0p0IpWkOMdv4uqfX/iWEdeX6zWQyErWnKhcKKqUZLlTfGKivv0/U68a/CPWWgssZhtQ0MNm6GKjRbyStatJf5U147pfl+pbLRmKWo729tbaE8W7WpBx27tKrBpNbeXm19/Yw93rm8rXmOnQs6VKzt63awo01tDf1f6/mfcbrzI4+9y1enRi6VzOVSUG3xi35x+z2/I58cifWWUABpUgAJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf/Z" class="rounded" align="left" width="150">
+            <div class="name">PW Institude of Innovation</div>
+            <div class="views">@PW-IOI 1.24M subscribers 234 videos</div>
+            <div class="date">Shaping Futures, Empowering Innovators!</div>
+            <div class="link"><a href="https://www.pwioi.com/">https://www.pwioi.com/</a>  & 8 more Links</div>
+
+            <div class="sub">
+                <span class="bi bi-bell-fill"></span>
+                <span>Subscribed</span>
+                <span class="bi bi-chevron-compact-down" ></span>
+            </div>
+        </div>
+    </article>
+   <div class="cat">
+    <span>Home</span>
+    <span>Videos</span>
+    <span>Shorts</span>
+    <span>Playlists</span>
+    <span>community</span>
+    <span class="bi bi-search"></span>
+   </div>
+   <div class="videos">
+    <div>
+    <iframe src="https://www.youtube.com/embed/Kz0Wu47Fufg"></iframe>
+   <div>
+    <iframe src="https://www.youtube.com/embed/9Zqoj28Z9aY"></iframe>
+   </div>
+   <div>
+    <iframe src="https://www.youtube.com/embed/TLv8rYYfLxY"></iframe>
+   </div>
+   <div>
+    <iframe src="https://www.youtube.com/embed/CdLObg-9Gmk"></iframe>
+   </div>
+   <div>
+    <iframe src="https://www.youtube.com/embed/CdLObg-9Gmk"></iframe>
+   </div>
+   <div>
+    <iframe src="https://www.youtube.com/embed/GyBwUTpJ-is"></iframe>
+   </div>
+   
+   <div>
+    <iframe src="https://www.youtube.com/embed/scX-jneH0hU"></iframe>
+   </div>
+   <div>
+    <iframe src="https://www.youtube.com/embed/UnCrj9xJzAU"></iframe>
+   </div>
+   <div>
+    <iframe src="https://www.youtube.com/embed/UnCrj9xJzAU"></iframe>
+   </div>
+   <div>
+    <iframe src="https://www.youtube.com/embed/UnCrj9xJzAU"></iframe>
+   </div>
+   </div>
+   </section>
+</body>
+</html>
