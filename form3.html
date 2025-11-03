@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 15px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    input[type="submit"] {
+      background-color: #4CAF50;
+    
+      border: none;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+    label {
+      font-weight: bold;
+    }
+    h2, h3 { color: #333; } 
+      div{
+        border: 2px solid gray;
+        height: 150px;
+        width: 300px;
+        background-color:rgb(224, 220, 220);
+        color: black;
+        overflow: auto;
+        border-radius: 10px;
+        box-shadow:5px 3px  ;
+      }
+      div label{font-weight:normal;}
+  </style>
+</head>
+<body>
+
+<h2 align="center">Registration Form</h2>
+
+<form action="submit.html" method="post" target="_blank">
+  <label for="u">Full Name:</label><br>
+  <input type="text" name="fullname" placeholder="Enter your name" id="u"><br><br>
+
+
+
+
+  <label for="w">Email:</label><br>
+  <input type="email" name="email" placeholder="Enter your email" id="w"><br><br>
+
+<lable for="n">Age</lable>
+<input type="number" name="number" placeholder="Enter your age" min="1" max="100" id="n" step="2"><br><br>
+
+
+  <label>Gender:</label>
+  <input type="radio" name="gender" value="male"> Male
+  <input type="radio" name="gender" value="female" > Female<br><br>
+
+<h3>Choose your fav superhero</h3>
+<div>
+<input type="checkbox" name="Shaktiman" id="1">
+<label for="1">Shaktiman</label>
+   
+<input type="checkbox" name="ironman" id="2">
+<label for="2">ironman</label>
+   
+<input type="checkbox" name="krishh" id="3">
+<label for="3">Krishh</label>
+   
+<input type="checkbox" name="Thor" id="4">
+<label for="4">Thor</label>
+   
+<input type="checkbox" name="Mighty raju" id="5">
+<label for="5">Mighty raju</label>
+</div>
+   
+
+
+
+
+ <label>DOB</label>
+  <input type="date">
+  <br><br>
+
+
+
+  <label>Time</label>
+  <input type="time" name="time">
+
+
+
+
+
+  <label for="country">Country:</label><br>
+  <select name="country" id="country">
+    <option value="india">India</option>
+    <option value="usa">USA</option>
+    <option value="uk">UK</option>
+  </select><br><br>
+
+
+
+  <lable for="course">Range</lable>
+  <input type="range" name="range" id="course" min="0" max="100" step="2"><br><br>
+
+
+
+
+  <label>Color picker:</label><br>
+  <input type="color" name="color" ><br><br>
+
+
+
+  <h3>Select your course</h3>
+<input  type="text" list="topics" name="text search" placeholder="Select your course">
+
+  <datalist id="topics">
+    <option>Html Example</option>
+    <option>Css Example</option>
+    <option>JavaScript Example</option>
+    <option>HTML projects</option>
+    <option>CSS projects</option>
+    <option>Javascripts projects</option>
+  </datalist>
+  <p >
+         <button>Search</button>
+  </p>
+   
+ <label for="file">upload document</label>
+  <input type="file" id="file" name="file" multiple><br><br>
+
+
+
+ <fieldset>
+    <legend>
+      Select product
+    </legend>
+    <select name="product">
+      <option>select product</option>
+      <optgroup label="electronics">
+        <option value="TEL">Television</option>
+        <option value="MOB">mobile</option>
+        <option value="WATCH">watches</option>
+      </optgroup>
+
+      <optgroup label="Fashion">
+        <option value="MEN">mens fashion</option>
+        <option value="KID">kids fashion</option>
+        <option value="WOMEN">Women fashion</option>
+      </optgroup>
+    </select>
+  </fieldset>
+
+  <label>Your Message:</label><br>
+  <textarea name="message" rows="5" cols="40" placeholder="Write something..."></textarea><br><br>
+
+  <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ol{
+            display: flex;
+            border:1px solid black;
+            list-style-type: none;
+            justify-content: space-between;
+            padding: 40px;
+       
+        span{
+            border: 1px solid black;
+            border-radius: 10px;
+            padding: 15px;
+            background-color: gray;
+            color: white;
+        }
+        .disabled span:hover{
+            cursor: not-allowed;
+             background-color: red;
+           
+        }
+        li:hover{ 
+           
+            color: white;
+            cursor: pointer;
+
+        }
+     
+    </style>
+</head>
+<body>
+    <nav>
+    <ol>
+        <Li><span>&laquo;</span></Li>
+        <Li><span>1</span></Li>
+        <Li><span>2</span></Li>
+        <Li><span>3</span></Li>
+        <Li class="disabled"><span>4</span></Li>
+        <Li><span>5</span></Li>
+        <Li><span>6</span></Li>
+        <Li><span>7</span></Li>
+        <Li><span>...</span></Li>
+        <Li><span>&raquo;</span></Li>
+    </ol>
+    </nav>
+</body>
+</html>
