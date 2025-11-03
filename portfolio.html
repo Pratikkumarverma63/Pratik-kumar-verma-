@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pratik Verma | Portfolio</title>
+  <style>
+    :root {
+      --bg-color: #f5f6fa;
+      --text-color: #2f3640;
+      --primary: #273c75;
+      --accent: #00a8ff;
+      --card-bg: #fff;
+    }
+
+    body.dark {
+      --bg-color: #1e272e;
+      --text-color: #f5f6fa;
+      --primary: #192a56;
+      --card-bg: #2f3640;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.4s, color 0.4s;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: var(--primary);
+      color: white;
+    }
+
+    header img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      margin-top: 0.3rem;
+      opacity: 0.9;
+    }
+
+    nav {
+      background: var(--primary);
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    section {
+      padding: 4rem 10%;
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 2rem;
+      font-size: 2rem;
+    }
+
+    .about, .projects, .skills, .contact {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+      transition: background 0.4s;
+    }
+
+    .social {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social a {
+      color: white;
+      background: var(--accent);
+      border-radius: 50%;
+      padding: 10px;
+      font-size: 18px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .social a:hover {
+      transform: scale(1.1);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+
+    .project-card h3 {
+      padding: 1rem;
+      color: var(--primary);
+    }
+
+    .project-card p {
+      padding: 0 1rem 1rem;
+      font-size: 0.95rem;
+    }
+
+    .skills ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+    }
+
+    .skills li {
+      background: var(--accent);
+      color: white;
+      text-align: center;
+      padding: 0.7rem;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+
+    .contact p {
+      text-align: center;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      background: var(--primary);
+      color: #fff;
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 2rem 5%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="theme-toggle">☀️</button>
+
+  <header>
+    <img src="WhatsApp Image 2025-11-03 at 20.07.36.jpeg" alt="Profile Photo">
+    <h1>Pratik kumar Verma</h1>
+    <p>Web Developer | Designer | Tech Enthusiast</p>
+
+    <div class="social">
+      <a href="#" title="GitHub">🐙</a>
+      <a href="#" title="LinkedIn">💼</a>
+      <a href="#" title="Instagram">📸</a>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="about" class="about">
+    <h2>About Me</h2>
+    <p>
+      Hello! I'm a passionate web developer who loves building creative and
+      functional websites. I enjoy working with HTML, CSS, and C and
+      continuously learning new technologies.
+    </p>
+  </section>
+
+  <section id="projects" class="projects">
+    <h2>Projects</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <a href="https://explorewithpk.my.canva.site"><img src="Screenshot 2025-11-03 at 8.21.06 PM.png"></a>
+        <h3>Portfolio Website</h3>
+        <p>A responsive personal website showcasing my projects and skills.</p>
+      </div>
+      <div class="project-card">
+        <a href="combine file.html"><img src="Screenshot 2025-11-03 at 9.13.28 PM.png"></a>
+        <h3>My HTML program</h3>
+        <p>my hmtl and css program learnings and practice</p>
+      </div>
+      <div class="project-card">
+        <img src="https://via.placeholder.com/400x200" alt="Project 3" />
+        <h3>Coming soon....</h3>
+        <p>Learning on the way...</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="skills">
+    <h2>Skills</h2>
+    <ul>
+      <li>HTML</li>
+      <li>CSS</li>
+      <li><a href="https://github.com/Pratikkumarverma63/Pratik-kumar-verma-">Github</a></li>
+      <li>C</li>
+      <li>Canva</li>
+      <li>Git</li>
+    </ul>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Contact</h2>
+    <p>Email: pratikkumar05756@gmail.com</p>
+    <p><a href="www.linkedin.com/in/pratik-kumar-verma-b402a1382 ">LinkedIn</a></p>
+  </section>
+
+  <footer>
+    <p>©️ 2025 Pratik kumar Verma. All rights reserved.</p>
+  </footer>
+
+
+</body>
+</html>
