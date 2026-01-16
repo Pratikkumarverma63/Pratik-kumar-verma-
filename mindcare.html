@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindCare - Mental Health Awareness Platform</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --primary: #10b981;
+            --secondary: #3b82f6;
+            --accent: #f59e0b;
+            --dark: #1f2937;
+            --light: #f3f4f6;
+            --danger: #ef4444;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.98) !important;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.6rem;
+            color: var(--primary) !important;
+            transition: transform 0.3s;
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+
+        .navbar-brand i {
+            color: var(--accent);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .nav-link {
+            color: var(--dark) !important;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: all 0.3s;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        .nav-link:hover {
+            color: var(--primary) !important;
+        }
+
+        #hero {
+            background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+            color: white;
+            padding: 140px 0 100px;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,138.7C960,139,1056,117,1152,101.3C1248,85,1344,75,1392,69.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s 0.2s backwards;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn-custom {
+            padding: 15px 45px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary-custom {
+            background: white;
+            color: var(--primary);
+            animation: fadeInUp 1s 0.4s backwards;
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            background: #f0fdf4;
+        }
+
+        .btn-outline-custom {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            animation: fadeInUp 1s 0.6s backwards;
+        }
+
+        .btn-outline-custom:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .emergency-banner {
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            border-left: 5px solid var(--danger);
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+            animation: fadeInUp 1s 0.8s backwards;
+            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.2);
+        }
+
+        .emergency-banner h5 {
+            color: var(--danger);
+            margin-bottom: 0.8rem;
+            font-weight: bold;
+        }
+        .mb-2{
+            color:gray;
+        }
+        .mb-0{
+            color:rgb(103, 130, 13);
+        }
+        .emergency-banner strong {
+            color: #99541b;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            color: var(--dark);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            color: #6b7280;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+            transition: all 0.4s;
+            border-top: 4px solid var(--primary);
+            height: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.2);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .issue-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+            transition: all 0.4s;
+            border-left: 5px solid var(--secondary);
+            height: 100%;
+        }
+
+        .issue-card:hover {
+            transform: translateX(15px);
+            box-shadow: 0 10px 35px rgba(59, 130, 246, 0.2);
+            border-left-width: 8px;
+        }
+
+        .issue-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .resource-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+            height: 100%;
+            transition: all 0.4s;
+            text-align: center;
+            border: 2px solid transparent;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border-color: var(--accent);
+        }
+
+        .resource-icon {
+            font-size: 3.5rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .resource-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .mood-tracker {
+            background: white;
+            padding: 3rem 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+        }
+
+        .mood-btn {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 3px solid #e5e7eb;
+            background: white;
+            font-size: 3rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .mood-btn:hover {
+            transform: scale(1.15);
+            border-color: var(--primary);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .mood-btn.active {
+            border-color: var(--primary);
+            background: #ecfdf5;
+            border-width: 4px;
+            transform: scale(1.1);
+        }
+
+        .quiz-container {
+            background: white;
+            padding: 3rem 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+        }
+
+        .quiz-question {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .quiz-option {
+            background: var(--light);
+            padding: 1.5rem 1.8rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+            font-size: 1.05rem;
+        }
+
+        .quiz-option:hover {
+            background: #e5e7eb;
+            border-color: var(--primary);
+            transform: translateX(8px);
+        }
+
+        .quiz-option.selected {
+            background: #d1fae5;
+            border-color: var(--primary);
+            border-width: 3px;
+        }
+
+        .quiz-progress {
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .quiz-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .helpline-card {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            color: white;
+            padding: 3rem 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(220, 38, 38, 0.3);
+        }
+
+        .helpline-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 1.5rem 0;
+            letter-spacing: 2px;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+            transition: all 0.4s;
+            height: 100%;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.15);
+        }
+
+        .blog-image {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-card:hover .blog-image {
+            transform: scale(1.05);
+        }
+
+        .blog-content {
+            padding: 1.8rem;
+        }
+
+        .blog-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--dark);
+            margin-bottom: 0.8rem;
+        }
+
+        .blog-text {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        .result-box {
+            background: var(--light);
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            display: none;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 0 1.5rem;
+        }
+
+        .footer-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.8rem;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .social-icons a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .back-to-top:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        .back-to-top.show {
+            display: flex;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .mood-btn {
+                width: 70px;
+                height: 70px;
+                font-size: 2.2rem;
+                margin: 5px;
+            }
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            .helpline-number {
+                font-size: 2rem;
+            }
+            .btn-custom {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+            #hero {
+                padding: 120px 0 60px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            .mood-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNavbar">
+        <div class="container">
+            <a class="navbar-brand" href="#hero">
+                <i class="fas fa-brain"></i> MindCare
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#awareness">Awareness</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#issues">Common Issues</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#resources">Resources</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#self-care">Self Care</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#help">Get Help</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <section id="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 hero-content">
+                    <h1 class="hero-title">Your Mental Health Matters</h1>
+                    <p class="hero-subtitle">Breaking the stigma, building awareness, and providing support for mental wellness in our community. You are not alone.</p>
+                    <div>
+                        <a href="#help" class="btn btn-custom btn-primary-custom me-3">Get Support Now</a>
+                        <a href="#awareness" class="btn btn-custom btn-outline-custom">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="emergency-banner">
+                        <h5><i class="fas fa-exclamation-triangle"></i> Emergency Support Available</h5>
+                        <p class="mb-2"><strong>National Helpline:</strong> 1800-599-0019</p>
+                        <p class="mb-2"><strong>Suicide Prevention:</strong> 022-27546669</p>
+                        <p class="mb-0"><small>Available 24/7 for crisis support and mental health assistance</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="section-padding" style="background: var(--light);">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="stat-card">
+                        <span class="stat-number counter" data-target="14">0</span>
+                        <p class="stat-label">1 in 7 Indians affected by mental health issues</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="stat-card">
+                        <span class="stat-number counter" data-target="15">0</span>
+                        <span class="stat-number" style="font-size: 2rem;">%</span>
+                        <p class="stat-label">Young adults face depression & anxiety</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="stat-card">
+                        <span class="stat-number counter" data-target="80">0</span>
+                        <span class="stat-number" style="font-size: 2rem;">%</span>
+                        <p class="stat-label">Don't seek help due to stigma</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="stat-card">
+                        <span class="stat-number">24/7</span>
+                        <p class="stat-label">Support available anytime you need</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="awareness" class="section-padding">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Why Mental Health Awareness Matters</h2>
+                <p class="section-subtitle">Understanding and supporting mental health creates stronger, healthier communities</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="issue-card">
+                        <div class="issue-icon"><i class="fas fa-heartbeat"></i></div>
+                        <h4 class="mb-3">It's Common & Normal</h4>
+                        <p class="text-muted mb-0">Mental health challenges affect millions of people worldwide. Just like physical health, mental health requires attention and care. Seeking help is a sign of strength, not weakness.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="issue-card">
+                        <div class="issue-icon"><i class="fas fa-comments"></i></div>
+                        <h4 class="mb-3">Break the Stigma</h4>
+                        <p class="text-muted mb-0">Open conversations about mental health help reduce shame and encourage people to seek support. By talking openly, we create a culture of acceptance and understanding.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="issue-card">
+                        <div class="issue-icon"><i class="fas fa-users"></i></div>
+                        <h4 class="mb-3">Build Support Systems</h4>
+                        <p class="text-muted mb-0">Building awareness creates supportive communities where people feel safe to share their experiences and seek help without fear of judgment.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="issue-card">
+                        <div class="issue-icon"><i class="fas fa-lightbulb"></i></div>
+                        <h4 class="mb-3">Early Intervention</h4>
+                        <p class="text-muted mb-0">Awareness helps identify mental health issues early, leading to better treatment outcomes, faster recovery, and improved quality of life.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="issues" class="section-padding" style="background: var(--light);">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Common Mental Health Challenges</h2>
+                <p class="section-subtitle">Recognize the signs and know that help is available</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="resource-card">
+                        <i class="resource-icon fas fa-sad-tear"></i>
+                        <h4 class="resource-title">Depression</h4>
+                        <p class="text-muted">Persistent feelings of sadness, hopelessness, loss of interest in activities, changes in sleep and appetite, and low energy affecting daily life.</p>
+                        <div class="mt-3">
+                            <span class="badge" style="background: var(--primary); color: white; padding: 8px 15px; border-radius: 20px;">Treatment Available</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="resource-card">
+                        <i class="resource-icon fas fa-heart-broken"></i>
+                        <h4 class="resource-title">Anxiety</h4>
+                        <p class="text-muted">Excessive worry, fear, nervousness, physical symptoms like rapid heartbeat, sweating, and difficulty concentrating on daily tasks.</p>
+                        <div class="mt-3">
+                            <span class="badge" style="background: var(--secondary); color: white; padding: 8px 15px; border-radius: 20px;">Manageable</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="resource-card">
+                        <i class="resource-icon fas fa-brain"></i>
+                        <h4 class="resource-title">Stress</h4>
+                        <p class="text-muted">Overwhelming pressure from work, studies, relationships, or personal life leading to physical and emotional exhaustion.</p>
+                        <div class="mt-3">
+                            <span class="badge" style="background: var(--accent); color: white; padding: 8px 15px; border-radius: 20px;">Coping Strategies Help</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="self-care" class="section-padding">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Mental Health Self-Assessment</h2>
+                <p class="section-subtitle">This quick assessment can help you understand your current mental well-being</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="quiz-container">
+                        <div id="quizContent">
+                            <div class="quiz-progress">
+                                <div class="quiz-progress-bar" id="progressBar"></div>
+                            </div>
+                            <h4 class="mb-4">Question <span id="questionNum">1</span> of <span id="totalQuestions">5</span></h4>
+                            <p id="questionText" class="quiz-question"></p>
+                            <div id="options"></div>
+                            <div class="text-center mt-4">
+                                <button class="btn btn-custom" style="background: var(--primary); color: white;" id="nextBtn" onclick="nextQuestion()">
+                                    <span id="btnText">Next Question</span> <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="resultBox" class="result-box">
+                            <h4 class="mb-4 text-center">Your Assessment Result</h4>
+                            <div id="resultText"></div>
+                            <div class="text-center mt-4">
+                                <button class="btn btn-custom" style="background: var(--primary); color: white;" onclick="restartQuiz()">
+                                    <i class="fas fa-redo me-2"></i> Take Assessment Again
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mood Tracker -->
+    <section class="section-padding" style="background: var(--light);">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">How Are You Feeling Today?</h2>
+                <p class="section-subtitle">Track your mood and receive personalized suggestions</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="mood-tracker">
+                        <div class="d-flex justify-content-around align-items-center flex-wrap">
+                            <div class="text-center">
+                                <button class="mood-btn" onclick="selectMood('Great', this)">😊</button>
+                                <p class="mt-2 fw-bold">Great</p>
+                            </div>
+                            <div class="text-center">
+                                <button class="mood-btn" onclick="selectMood('Good', this)">🙂</button>
+                                <p class="mt-2 fw-bold">Good</p>
+                            </div>
+                            <div class="text-center">
+                                <button class="mood-btn" onclick="selectMood('Okay', this)">😐</button>
+                                <p class="mt-2 fw-bold">Okay</p>
+                            </div>
+                            <div class="text-center">
+                                <button class="mood-btn" onclick="selectMood('Bad', this)">😔</button>
+                                <p class="mt-2 fw-bold">Bad</p>
+                            </div>
+                            <div class="text-center">
+                                <button class="mood-btn" onclick="selectMood('Terrible', this)">😢</button>
+                                <p class="mt-2 fw-bold">Terrible</p>
+                            </div>
+                        </div>
+                        <div id="moodMessage" class="text-center mt-5" style="display: none;">
+                            <div class="alert" style="background: #ecfdf5; border-left: 4px solid var(--primary); padding: 1.5rem;">
+                                <h5 id="moodText" class="mb-3"></h5>
+                                <p class="text-muted mb-0" id="moodAdvice"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="resources" class="section-padding">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Helpful Resources & Articles</h2>
+                <p class="section-subtitle">Learn more about mental health and self-care strategies</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="blog-card">
+                        <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=300&fit=crop');"></div>
+                        <div class="blog-content">
+                            <h5 class="blog-title">5 Daily Habits for Better Mental Health</h5>
+                            <p class="blog-text">Discover simple, science-backed practices that can significantly improve your emotional well-being and mental clarity.</p>
+                            <span class="badge" style="background: var(--primary); color: white;">Self-Care</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="blog-card">
+                        <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=300&fit=crop');"></div>
+                        <div class="blog-content">
+                            <h5 class="blog-title">Understanding Anxiety & How to Cope</h5>
+                            <p class="blog-text">Learn to recognize anxiety symptoms and discover effective strategies to manage worry and stress in daily life.</p>
+                            <span class="badge" style="background: var(--secondary); color: white;">Mental Health</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="blog-card">
+                        <div class="blog-image" style="background-image: url('https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=600&h=300&fit=crop');"></div>
+                        <div class="blog-content">
+                            <h5 class="blog-title">When to Seek Professional Help</h5>
+                            <p class="blog-text">Understand the warning signs that indicate it's time to reach out to a mental health professional for support.</p>
+                            <span class="badge" style="background: var(--accent); color: white;">Guidance</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="help" class="section-padding" style="background: var(--light);">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Get Immediate Support</h2>
+                <p class="section-subtitle">Professional help is available 24/7 - You don't have to face this alone</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="helpline-card">
+                        <i class="fas fa-phone-alt fa-4x mb-3"></i>
+                        <h3>24/7 Mental Health Helplines</h3>
+                        <div class="helpline-number">1800-599-0019</div>
+                        <p class="mb-2">National Mental Health Helpline</p>
+                        <div class="helpline-number" style="font-size: 2rem;">022-27546669</div>
+                        <p class="mb-2">Suicide Prevention Helpline</p>
+                        <hr style="border-color: rgba(255,255,255,0.3); margin: 2rem 0;">
+                        <p><strong>Other Helplines:</strong></p>
+                        <p class="mb-1">iCall: 9152987821 (Mon-Sat, 8 AM - 10 PM)</p>
+                        <p class="mb-0">Vandrevala Foundation: 1860-2662-345 (24/7)</p>
+                    </div>
+                    <div class="row g-4 mt-4">
+                        <div class="col-md-6">
+                            <div class="resource-card" style="text-align: left;">
+                                <i class="fas fa-hospital text-primary" style="font-size: 2.5rem; margin-bottom: 1rem;"></i>
+                                <h5 class="resource-title">Find a Therapist</h5>
+                                <p class="text-muted">Connect with licensed mental health professionals in your area. Therapy can provide tools and strategies for managing mental health challenges.</p>
+                                <button class="btn btn-sm mt-2" style="background: var(--primary); color: white; padding: 8px 20px; border-radius: 20px;">
+                                    Search Therapists <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="resource-card" style="text-align: left;">
+                                <i class="fas fa-users text-primary" style="font-size: 2.5rem; margin-bottom: 1rem;"></i>
+                                <h5 class="resource-title">Support Groups</h5>
+                                <p class="text-muted">Join communities of people with similar experiences. Sharing and listening in a safe space can be incredibly healing.</p>
+                                <button class="btn btn-sm mt-2" style="background: var(--secondary); color: white; padding: 8px 20px; border-radius: 20px;">
+                                    Find Groups <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="section-padding">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Share Your Feedback</h2>
+                <p class="section-subtitle">Help us improve mental health awareness and support</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="quiz-container">
+                        <form id="contactForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Your Name</label>
+                                    <input type="text" class="form-control" placeholder="Enter your name" required style="padding: 12px; border-radius: 8px;">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Your Email</label>
+                                    <input type="email" class="form-control" placeholder="Enter your email" required style="padding: 12px; border-radius: 8px;">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Subject</label>
+                                <input type="text" class="form-control" placeholder="What's this about?" required style="padding: 12px; border-radius: 8px;">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Message</label>
+                                <textarea class="form-control" rows="5" placeholder="Share your thoughts, suggestions, or experiences..." required style="padding: 12px; border-radius: 8px;"></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-custom" style="background: var(--primary); color: white;">
+                                    <i class="fas fa-paper-plane me-2"></i> Send Message
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="footer-title"><i class="fas fa-brain"></i> MindCare</h5>
+                    <p class="text-muted">Promoting mental health awareness and providing resources for a healthier, more understanding society. Together, we can break the stigma.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/boy_unknow50768"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/itz_pk.verma_63?igsh=ZzdhMzN6NDBybjgw"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/pratik-kumar-verma-b402a1382?utm_source=share_via&utm_content=profile&utm_medium=member_android"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 class="footer-title">Quick Links</h5>
+                    <div class="footer-links">
+                        <a href="#awareness"><i class="fas fa-chevron-right me-2"></i> Mental Health Awareness</a>
+                        <a href="#issues"><i class="fas fa-chevron-right me-2"></i> Common Issues</a>
+                        <a href="#resources"><i class="fas fa-chevron-right me-2"></i> Resources & Articles</a>
+                        <a href="#self-care"><i class="fas fa-chevron-right me-2"></i> Self-Assessment</a>
+                        <a href="#help"><i class="fas fa-chevron-right me-2"></i> Get Help Now</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 class="footer-title">Emergency Contacts</h5>
+                    <div class="text-muted">
+                        <p class="mb-2"><i class="fas fa-phone-alt me-2"></i> National Helpline:<br><strong style="color: white; font-size: 1.1rem;">1800-599-0019</strong></p>
+                        <p class="mb-2"><i class="fas fa-phone-alt me-2"></i> Suicide Prevention:<br><strong style="color: white; font-size: 1.1rem;">022-27546669</strong></p>
+                        <p class="mb-2"><i class="fas fa-phone-alt me-2"></i> iCall Helpline:<br><strong style="color: white; font-size: 1.1rem;">9152987821</strong></p>
+                    </div>
+                </div>
+            </div>
+            <hr style="border-color: #374151; margin: 2rem 0;">
+            <div class="text-center">
+                <p class="text-muted mb-2">&copy; 2025 MindCare - Mental Health Awareness Platform</p>
+                <p class="text-muted mb-0"><i class="fas fa-heart" style="color: #ef4444;"></i> Caring for mental wellness. Remember: You are not alone.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+    
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+                    const navbarCollapse = document.querySelector('.navbar-collapse');
+                    if(navbarCollapse.classList.contains('show')) {
+                        navbarCollapse.classList.remove('show');
+                    }
+                }
+            });
+        });
+
+        
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('mainNavbar');
+            if(window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+    
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+                
+                const updateCounter = () => {
+                    current += step;
+                    if(current < target) {
+                        counter.textContent = Math.floor(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                updateCounter();
+            });
+        }
+
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const statsSection = document.querySelector('.stat-card').closest('section');
+        if(statsSection) {
+            observer.observe(statsSection);
+        }
+
+    
+        function selectMood(mood, btn) {
+            document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const messages = {
+                'Great': {
+                    text: 'Wonderful! That\'s fantastic! 🌟',
+                    advice: 'Keep up the positive energy! Share your happiness with others and continue practicing the good habits that make you feel this way.'
+                },
+                'Good': {
+                    text: 'That\'s nice to hear! 😊',
+                    advice: 'Maintain your balance with regular self-care, healthy routines, and staying connected with people you care about.'
+                },
+                'Okay': {
+                    text: 'Hanging in there! 💪',
+                    advice: 'Consider doing something you enjoy today. Small acts of self-care like a walk, listening to music, or talking to a friend can make a difference.'
+                },
+                'Bad': {
+                    text: 'Sorry to hear you\'re having a tough time 😔',
+                    advice: 'It\'s okay to have difficult days. Try talking to a friend, practicing relaxation techniques, or engaging in activities that usually help you feel better. Remember, this feeling is temporary.'
+                },
+                'Terrible': {
+                    text: 'We\'re here for you ❤️',
+                    advice: 'Please don\'t hesitate to reach out for support. Call our helpline at 1800-599-0019 or talk to someone you trust. You don\'t have to face this alone - professional help is available 24/7.'
+                }
+            };
+            
+            document.getElementById('moodText').textContent = messages[mood].text;
+            document.getElementById('moodAdvice').textContent = messages[mood].advice;
+            document.getElementById('moodMessage').style.display = 'block';
+            
+        
+            document.getElementById('moodMessage').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+    
+        const quizData = [
+            {
+                question: "Over the past 2 weeks, how often have you felt down, depressed, or hopeless?",
+                options: ["Not at all", "Several days", "More than half the days", "Nearly every day"]
+            },
+            {
+                question: "How often do you feel nervous, anxious, or on edge?",
+                options: ["Rarely or never", "Sometimes", "Often", "Almost always"]
+            },
+            {
+                question: "Do you have trouble falling asleep, staying asleep, or sleeping too much?",
+                options: ["No issues", "Occasionally", "Frequently", "Every night"]
+            },
+            {
+                question: "How often do you feel tired or have little energy during the day?",
+                options: ["Rarely", "Sometimes", "Often", "Constantly"]
+            },
+            {
+                question: "Have you lost interest or pleasure in activities you used to enjoy?",
+                options: ["Not at all", "A little", "Quite a bit", "Completely"]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let selectedAnswer = -1;
+
+        function loadQuestion() {
+            const q = quizData[currentQuestion];
+            const totalQ = quizData.length;
+            
+            document.getElementById('questionNum').textContent = currentQuestion + 1;
+            document.getElementById('totalQuestions').textContent = totalQ;
+            document.getElementById('questionText').textContent = q.question;
+            
+    
+            const progress = ((currentQuestion + 1) / totalQ) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            
+            const optionsHtml = q.options.map((opt, idx) => 
+                `<div class="quiz-option" onclick="selectOption(${idx}, this)">${opt}</div>`
+            ).join('');
+            
+            document.getElementById('options').innerHTML = optionsHtml;
+            
+        
+            if(currentQuestion === totalQ - 1) {
+                document.getElementById('btnText').textContent = 'See Results';
+            } else {
+                document.getElementById('btnText').textContent = 'Next Question';
+            }
+        }
+
+        function selectOption(idx, elem) {
+            document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+            elem.classList.add('selected');
+            selectedAnswer = idx;
+        }
+
+        function nextQuestion() {
+            if(selectedAnswer === -1) {
+                alert('Please select an option before continuing');
+                return;
+            }
+            
+            score += selectedAnswer;
+            selectedAnswer = -1;
+            currentQuestion++;
+            
+            if(currentQuestion < quizData.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('quizContent').style.display = 'none';
+            document.getElementById('resultBox').style.display = 'block';
+            
+            let resultText = '';
+            let resultClass = '';
+            
+            if(score <= 5) {
+                resultClass = 'success';
+                resultText = `
+                    <div class="alert alert-success" style="border-left: 5px solid #10b981;">
+                        <h5><i class="fas fa-check-circle me-2"></i> Good Mental Health</h5>
+                        <p>Based on your responses, you seem to be doing well mentally! Continue maintaining healthy habits, self-care practices, and staying connected with your support system.</p>
+                        <hr>
+                        <p class="mb-0"><strong>Recommendations:</strong></p>
+                        <ul class="mt-2">
+                            <li>Keep practicing self-care activities</li>
+                            <li>Maintain healthy sleep and exercise routines</li>
+                            <li>Stay connected with friends and family</li>
+                        </ul>
+                    </div>
+                `;
+            } else if(score <= 10) {
+                resultClass = 'warning';
+                resultText = `
+                    <div class="alert alert-warning" style="border-left: 5px solid #f59e0b;">
+                        <h5><i class="fas fa-exclamation-circle me-2"></i> Mild Concerns</h5>
+                        <p>You may be experiencing some stress or minor mental health concerns. This is completely normal and manageable with the right support and self-care.</p>
+                        <hr>
+                        <p class="mb-0"><strong>Recommendations:</strong></p>
+                        <ul class="mt-2">
+                            <li>Talk to friends, family, or a trusted person</li>
+                            <li>Practice stress-management techniques</li>
+                            <li>Consider speaking with a counselor if symptoms persist</li>
+                            <li>Maintain regular sleep, exercise, and healthy eating</li>
+                        </ul>
+                    </div>
+                `;
+            } else if(score <= 15) {
+                resultClass = 'danger';
+                resultText = `
+                    <div class="alert alert-danger" style="border-left: 5px solid #ef4444;">
+                        <h5><i class="fas fa-exclamation-triangle me-2"></i> Moderate Concerns</h5>
+                        <p>Your responses suggest you might be experiencing significant mental health challenges. We strongly recommend seeking professional support to help you through this.</p>
+                        <hr>
+                        <p class="mb-0"><strong>Recommended Actions:</strong></p>
+                        <ul class="mt-2">
+                            <li>Reach out to a mental health professional</li>
+                            <li>Call our helpline: <strong>1800-599-0019</strong></li>
+                            <li>Talk to someone you trust about how you're feeling</li>
+                            <li>Consider joining a support group</li>
+                        </ul>
+                    </div>
+                `;
+            } else {
+                resultClass = 'danger';
+                resultText = `
+                    <div class="alert alert-danger" style="border-left: 5px solid #dc2626; background: #fee2e2;">
+                        <h5><i class="fas fa-heartbeat me-2"></i> Significant Concerns - Please Seek Help</h5>
+                        <p><strong>We strongly urge you to seek professional help immediately.</strong> Your well-being matters, and there are people ready to support you right now.</p>
+                        <hr>
+                        <div style="background: white; padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+                            <h6 class="text-danger mb-3"><i class="fas fa-phone-alt me-2"></i> Call Now:</h6>
+                            <p class="mb-2"><strong>National Helpline:</strong> <a href="tel:18005990019" style="color: #dc2626; font-size: 1.2rem; font-weight: bold;">1800-599-0019</a></p>
+                            <p class="mb-0"><strong>Suicide Prevention:</strong> <a href="tel:02227546669" style="color: #dc2626; font-size: 1.2rem; font-weight: bold;">022-27546669</a></p>
+                        </div>
+                        <p class="mt-3 mb-0">Remember: Seeking help is a sign of strength, not weakness. You don't have to face this alone - support is available 24/7.</p>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('resultText').innerHTML = resultText;
+            
+            
+            document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            selectedAnswer = -1;
+            document.getElementById('quizContent').style.display = 'block';
+            document.getElementById('resultBox').style.display = 'none';
+            loadQuestion();
+            document.getElementById('quizContent').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+
+        loadQuestion();
+
+        
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your feedback! Your message helps us improve mental health awareness and support. We appreciate you taking the time to share your thoughts.');
+            this.reset();
+        });
+
+    
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if(window.scrollY > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+        
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
