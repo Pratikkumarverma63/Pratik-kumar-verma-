@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" width="100%" height="100%">
+  <defs>
+    <!-- Monochrome Gradients -->
+    <radialGradient id="ai-ambient" cx="50%" cy="45%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="60%" stop-color="#0f172a" stop-opacity="0.0"/>
+    </radialGradient>
+    <radialGradient id="ai-orb-core" cx="40%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="25%" stop-color="#94a3b8"/>
+      <stop offset="60%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#090d16"/>
+    </radialGradient>
+    <linearGradient id="ai-halo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#cbd5e1"/>
+      <stop offset="100%" stop-color="#64748b"/>
+    </linearGradient>
+    <linearGradient id="ai-pedestal" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#090d16"/>
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="glow-white" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="shadow-deep" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient Backdrop -->
+  <rect x="0" y="0" width="600" height="360" fill="url(#ai-ambient)"/>
+
+  <!-- Hologram Field Grid & Orbit Tracks in White/Gray -->
+  <g opacity="0.3">
+    <ellipse cx="300" cy="165" rx="170" ry="60" fill="none" stroke="#ffffff" stroke-width="1" stroke-dasharray="6,8" transform="rotate(-15 300 165)"/>
+    <ellipse cx="300" cy="165" rx="180" ry="65" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,6" transform="rotate(20 300 165)"/>
+  </g>
+
+  <!-- Mag-Lev Base Pedestal & Magnetic Ground Ring -->
+  <g filter="url(#shadow-deep)">
+    <ellipse cx="300" cy="300" rx="140" ry="20" fill="#000000" opacity="0.7"/>
+    <ellipse cx="300" cy="292" rx="120" ry="18" fill="url(#ai-pedestal)" stroke="#64748b" stroke-width="2"/>
+    <ellipse cx="300" cy="286" rx="90" ry="12" fill="#0f172a" stroke="#cbd5e1" stroke-width="1.5"/>
+    <ellipse cx="300" cy="283" rx="55" ry="8" fill="#ffffff" filter="url(#glow-white)" opacity="0.7"/>
+
+    <!-- Vertical Mag-Lev Energy Beams -->
+    <line x1="280" y1="280" x2="288" y2="230" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.6"/>
+    <line x1="300" y1="280" x2="300" y2="225" stroke="#ffffff" stroke-width="2" stroke-dasharray="4,4" filter="url(#glow-white)"/>
+    <line x1="320" y1="280" x2="312" y2="230" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.6"/>
+  </g>
+
+  <!-- Levitating AI Core Companion Sphere -->
+  <g filter="url(#shadow-deep)">
+    <!-- Outer Gyroscopic Energy Rings -->
+    <ellipse cx="300" cy="160" rx="108" ry="40" fill="none" stroke="url(#ai-halo-grad)" stroke-width="2.5" stroke-dasharray="8,6" transform="rotate(-22 300 160)" filter="url(#glow-white)"/>
+    <ellipse cx="300" cy="160" rx="125" ry="46" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="12,8" transform="rotate(32 300 160)"/>
+
+    <!-- Orbiting Micro Satellite Nodes -->
+    <circle cx="210" cy="120" r="5" fill="#ffffff" filter="url(#glow-white)"/>
+    <circle cx="390" cy="200" r="5" fill="#cbd5e1" filter="url(#glow-white)"/>
+
+    <!-- Main Metallic Glass AI Orb -->
+    <circle cx="300" cy="160" r="68" fill="url(#ai-orb-core)" stroke="url(#ai-halo-grad)" stroke-width="3"/>
+    
+    <!-- Gloss Specular Highlight Reflection -->
+    <ellipse cx="282" cy="128" rx="28" ry="14" fill="#ffffff" opacity="0.25" transform="rotate(-30 282 128)"/>
+
+    <!-- High-Tech Visor Face Display Screen -->
+    <rect x="252" y="138" width="96" height="44" rx="12" fill="#030712" stroke="#ffffff" stroke-width="1.5"/>
+    
+    <!-- Expressive Cyber Eyes in Crisp White -->
+    <ellipse cx="278" cy="158" rx="8" ry="10" fill="#ffffff" filter="url(#glow-white)"/>
+    <circle cx="280" cy="155" r="3" fill="#0f172a"/>
+    
+    <ellipse cx="322" cy="158" rx="8" ry="10" fill="#ffffff" filter="url(#glow-white)"/>
+    <circle cx="324" cy="155" r="3" fill="#0f172a"/>
+
+    <!-- Neural Smile / Audio Arc -->
+    <path d="M 288 172 Q 300 180 312 172" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" filter="url(#glow-white)"/>
+
+    <!-- 6-Mic Circular Spatial Audio Beam Waves (Monochrome) -->
+    <!-- Left Waves -->
+    <path d="M 215 145 Q 200 160 215 175" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+    <path d="M 195 135 Q 175 160 195 185" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+    <path d="M 175 125 Q 150 160 175 195" fill="none" stroke="#64748b" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+
+    <!-- Right Waves -->
+    <path d="M 385 145 Q 400 160 385 175" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+    <path d="M 405 135 Q 425 160 405 185" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  </g>
+</svg>

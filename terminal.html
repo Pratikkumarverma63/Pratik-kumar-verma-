@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CLEBSCH OS v4.8 — Cyber Terminal CLI | Advanced Robotics Lab</title>
+  <meta name="description" content="Dedicated Command Line Interface emulator for CLEBSCH Robotics OS. Execute robotic telemetry queries, combat bot status, AI swarms, and recruit intake.">
+  <link rel="icon" type="image/png" href="assets/clebsch-logo-light.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Iceland&family=Rajdhani:wght@500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+
+  <style>
+    /* DEDICATED FULLSCREEN TERMINAL PAGE STYLES */
+    :root {
+      --term-bg: #07070a;
+      --term-panel: #0d0e15;
+      --term-header: #12131c;
+      --term-border: rgba(16, 185, 129, 0.25);
+      --term-accent: #10b981;
+      --term-text: #e2e8f0;
+      --term-dim: #64748b;
+    }
+
+    body.terminal-page {
+      background-color: var(--term-bg);
+      color: var(--term-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      font-family: var(--font-mono);
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 10% 90%, rgba(0, 0, 0, 0.8) 0%, transparent 50%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+    }
+
+    /* Top Navigation Bar */
+    .term-page-nav {
+      height: 64px;
+      background: rgba(13, 14, 21, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .term-page-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+      color: #ffffff;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: 0.05em;
+    }
+
+    .term-page-brand img {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+    }
+
+    .term-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #e2e8f0;
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .term-back-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+      transform: translateX(-2px);
+    }
+
+    .term-nav-stats {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      font-size: 0.78rem;
+    }
+
+    .stat-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--term-dim);
+    }
+
+    .stat-badge strong {
+      color: #10b981;
+    }
+
+    /* Terminal Container */
+    .term-page-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem;
+      box-sizing: border-box;
+    }
+
+    .term-fullscreen-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: rgba(10, 11, 17, 0.92);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 14px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(16, 185, 129, 0.1);
+      overflow: hidden;
+      position: relative;
+      min-height: calc(100vh - 120px);
+    }
+
+    /* CRT Scanlines Overlay */
+    .crt-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 255, 0, 0.03));
+      background-size: 100% 3px, 6px 100%;
+      pointer-events: none;
+      z-index: 10;
+      opacity: 0.65;
+    }
+
+    .crt-overlay.disabled {
+      display: none;
+    }
+
+    /* Terminal Title Bar */
+    .term-window-header {
+      background: #12131c;
+      padding: 0.75rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.82rem;
+    }
+
+    .term-traffic-lights {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .traffic-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #eab308; }
+    .dot-green { background: #22c55e; }
+
+    .term-title-text {
+      color: #94a3b8;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .term-title-text i {
+      color: #10b981;
+    }
+
+    .term-window-tools {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .term-tool-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      padding: 0.25rem 0.65rem;
+      border-radius: 5px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s ease;
+    }
+
+    .term-tool-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+    }
+
+    /* Terminal Output Screen */
+    .term-screen {
+      flex: 1;
+      padding: 1.5rem;
+      overflow-y: auto;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #e2e8f0;
+      min-height: 420px;
+      max-height: calc(100vh - 280px);
+      scroll-behavior: smooth;
+    }
+
+    .term-screen::-webkit-scrollbar {
+      width: 8px;
+    }
+    .term-screen::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+    }
+    .term-screen::-webkit-scrollbar-thumb {
+      background: rgba(16, 185, 129, 0.3);
+      border-radius: 4px;
+    }
+    .term-screen::-webkit-scrollbar-thumb:hover {
+      background: rgba(16, 185, 129, 0.6);
+    }
+
+    .term-line {
+      margin-bottom: 0.5rem;
+      word-break: break-word;
+      animation: fadeInTerm 0.15s ease-out;
+    }
+
+    @keyframes fadeInTerm {
+      from { opacity: 0; transform: translateY(2px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .term-prompt-label {
+      color: #10b981;
+      font-weight: 700;
+      margin-right: 0.5rem;
+    }
+
+    .term-cmd-text {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    /* ASCII Banner */
+    .ascii-banner {
+      color: #10b981;
+      font-size: 0.72rem;
+      line-height: 1.2;
+      white-space: pre;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+    }
+
+    /* Command Quick Toolbar */
+    .term-quick-bar {
+      padding: 0.6rem 1.2rem;
+      background: rgba(18, 19, 28, 0.9);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+      font-size: 0.78rem;
+    }
+
+    .quick-chip {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: #10b981;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      transition: all 0.2s ease;
+    }
+
+    .quick-chip:hover {
+      background: #10b981;
+      color: #000000;
+      border-color: #10b981;
+      transform: translateY(-1px);
+    }
+
+    /* Terminal Input Form */
+    .term-cli-form {
+      display: flex;
+      align-items: center;
+      padding: 0.9rem 1.2rem;
+      background: #090a10;
+      border-top: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .term-cli-prompt {
+      color: #10b981;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-right: 0.6rem;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .term-cli-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      caret-color: #10b981;
+    }
+
+    .term-cli-input::placeholder {
+      color: #475569;
+    }
+
+    @media (max-width: 768px) {
+      .term-nav-stats { display: none; }
+      .term-page-main { padding: 0.75rem; }
+      .term-screen { padding: 1rem; font-size: 0.82rem; }
+      .ascii-banner { font-size: 0.55rem; }
+    }
+  </style>
+</head>
+<body class="terminal-page">
+
+  <!-- TOP APP BAR -->
+  <header class="term-page-nav">
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <a href="index.html#terminal" class="term-back-btn" data-return-section="terminal" title="Return to CLEBSCH Main Portal">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Main Portal</span>
+      </a>
+
+      <a href="index.html#terminal" class="term-page-brand">
+        <img src="assets/clebsch-logo-light.png" alt="Clebsch Logo">
+        <span>CLEBSCH OS <span style="color: #10b981; font-size: 0.8rem; font-family: var(--font-mono);">v4.8</span></span>
+      </a>
+    </div>
+
+    <!-- Live Telemetry Stats -->
+    <div class="term-nav-stats">
+      <div class="stat-badge"><i class="fa-solid fa-circle" style="font-size: 6px; color: #10b981;"></i> NODE: <strong>ONLINE</strong></div>
+      <div class="stat-badge"><i class="fa-solid fa-microchip"></i> CPU: <strong id="cpu-stat">3.2%</strong></div>
+      <div class="stat-badge"><i class="fa-solid fa-memory"></i> RAM: <strong id="ram-stat">412 MB</strong></div>
+      <div class="stat-badge"><i class="fa-solid fa-clock"></i> <span id="term-clock">00:00:00 IST</span></div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <button class="term-tool-btn" id="sfx-toggle-btn" title="Toggle Sound FX">
+        <i class="fa-solid fa-volume-high" id="sfx-icon"></i>
+        <span id="sfx-text">SFX</span>
+      </button>
+      <button class="term-tool-btn" id="scanlines-toggle-btn" title="Toggle CRT Scanlines Overlay">
+        <i class="fa-solid fa-tv"></i>
+        <span>CRT</span>
+      </button>
+      <button class="term-tool-btn" id="clear-term-btn" title="Clear Screen">
+        <i class="fa-solid fa-trash-can"></i>
+        <span>Clear</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN TERMINAL AREA -->
+  <main class="term-page-main">
+    <div class="term-fullscreen-card" id="term-container">
+      <div class="crt-overlay" id="crt-layer"></div>
+
+      <!-- Window Header Bar -->
+      <div class="term-window-header">
+        <div class="term-traffic-lights">
+          <span class="traffic-dot dot-red"></span>
+          <span class="traffic-dot dot-yellow"></span>
+          <span class="traffic-dot dot-green"></span>
+        </div>
+        <div class="term-title-text">
+          <i class="fa-solid fa-terminal"></i>
+          <span>guest@clebsch-research-node: /dev/ttyS0 [ROS2 IRON // KERNEL: NEURAL]</span>
+        </div>
+        <div class="term-window-tools">
+          <span style="color: #10b981; font-size: 0.72rem; font-weight: 700;">
+            <i class="fa-solid fa-shield-halved mr-1"></i>SSL 256-BIT SECURE
+          </span>
+        </div>
+      </div>
+
+      <!-- Terminal Output -->
+      <div class="term-screen" id="terminal-screen" onclick="document.getElementById('terminal-cli-input').focus();">
+        <pre class="ascii-banner">
+   ______ __    ______ ____   _____ ______ __  __
+  / ____// /   / ____// __ ) / ___// ____// / / /
+ / /    / /   / __/  / __  | \__ \/ /    / /_/ / 
+/ /___ / /___/ /___ / /_/ / ___/ / /___ / __  /  
+\____//_____/_____//_____/ /____/\____//_/ /_/   
+  ROBOTICS RESEARCH COLLECTIVE // CLEBSCH OS v4.8
+        </pre>
+        <div id="term-log"></div>
+      </div>
+
+      <!-- Quick Commands -->
+      <div class="term-quick-bar">
+        <span style="color: #64748b; font-weight: 600;">Prompts:</span>
+        <button type="button" class="quick-chip" data-cmd="help">help</button>
+        <button type="button" class="quick-chip" data-cmd="about">about</button>
+        <button type="button" class="quick-chip" data-cmd="wings">wings</button>
+        <button type="button" class="quick-chip" data-cmd="projects">projects</button>
+        <button type="button" class="quick-chip" data-cmd="events">events</button>
+        <button type="button" class="quick-chip" data-cmd="team">team</button>
+        <button type="button" class="quick-chip" data-cmd="ping">ping</button>
+        <button type="button" class="quick-chip" data-cmd="specs">specs</button>
+        <button type="button" class="quick-chip" data-cmd="matrix">matrix</button>
+        <button type="button" class="quick-chip" data-cmd="join">join</button>
+        <button type="button" class="quick-chip" data-cmd="clear">clear</button>
+      </div>
+
+      <!-- Command Input Line -->
+      <form class="term-cli-form" id="term-form">
+        <span class="term-cli-prompt">guest@clebsch:~$</span>
+        <input type="text" class="term-cli-input" id="terminal-cli-input" placeholder="Type a command (try 'help', 'projects', 'team')..." autocomplete="off" autofocus>
+      </form>
+    </div>
+  </main>
+
+  <!-- Audio Synthesizer Script -->
+  <script src="js/audio-sfx.js"></script>
+
+  <!-- Fullscreen Terminal Controller -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const input = document.getElementById("terminal-cli-input");
+      const form = document.getElementById("term-form");
+      const log = document.getElementById("term-log");
+      const screen = document.getElementById("terminal-screen");
+      const sfxBtn = document.getElementById("sfx-toggle-btn");
+      const sfxIcon = document.getElementById("sfx-icon");
+      const sfxText = document.getElementById("sfx-text");
+      const crtBtn = document.getElementById("scanlines-toggle-btn");
+      const crtLayer = document.getElementById("crt-layer");
+      const clearBtn = document.getElementById("clear-term-btn");
+      const clockEl = document.getElementById("term-clock");
+      const cpuEl = document.getElementById("cpu-stat");
+      const ramEl = document.getElementById("ram-stat");
+
+      const history = [];
+      let historyIdx = -1;
+
+      // Initialize Audio SFX
+      window.cyberAudio = new CyberAudioSystem();
+
+      // Audio Toggle
+      function updateSfxUI() {
+        if (window.cyberAudio.muted) {
+          sfxIcon.className = "fa-solid fa-volume-xmark";
+          sfxText.textContent = "MUTED";
+          sfxBtn.style.borderColor = "rgba(239, 68, 68, 0.4)";
+          sfxBtn.style.color = "#ef4444";
+        } else {
+          sfxIcon.className = "fa-solid fa-volume-high";
+          sfxText.textContent = "SFX";
+          sfxBtn.style.borderColor = "rgba(255, 255, 255, 0.1)";
+          sfxBtn.style.color = "#cbd5e1";
+        }
+      }
+      updateSfxUI();
+
+      sfxBtn.addEventListener("click", () => {
+        window.cyberAudio.toggleMute();
+        updateSfxUI();
+        if (!window.cyberAudio.muted) window.cyberAudio.playClick();
+      });
+
+      // CRT Scanlines Toggle
+      crtBtn.addEventListener("click", () => {
+        crtLayer.classList.toggle("disabled");
+        if (window.cyberAudio) window.cyberAudio.playClick();
+      });
+
+      // Clear Button
+      clearBtn.addEventListener("click", () => {
+        log.innerHTML = "";
+        if (window.cyberAudio) window.cyberAudio.playClick();
+        printGreeting();
+      });
+
+      // Live Clock & System Stats
+      setInterval(() => {
+        const now = new Date();
+        clockEl.textContent = now.toTimeString().split(" ")[0] + " IST";
+        if (Math.random() > 0.6) {
+          cpuEl.textContent = (2.1 + Math.random() * 3.4).toFixed(1) + "%";
+          ramEl.textContent = Math.floor(400 + Math.random() * 30) + " MB";
+        }
+      }, 1000);
+
+      // Append Line Helper
+      function appendLine(html, isRaw = true) {
+        const line = document.createElement("div");
+        line.className = "term-line";
+        if (isRaw) {
+          line.innerHTML = html;
+        } else {
+          line.textContent = html;
+        }
+        log.appendChild(line);
+        screen.scrollTop = screen.scrollHeight;
+      }
+
+      function printGreeting() {
+        appendLine(`
+<span style="color: #64748b;">================================================================================</span>
+<span style="color: #ffffff; font-weight: 700;">WELCOME TO CLEBSCH ROBOTICS EMBEDDED OS v4.8 [KERNEL: ROS2-IRON // NEURAL-BUS]</span>
+<span style="color: #94a3b8;">Type <span style="color: #10b981; font-weight: 700;">'help'</span> to see all system commands, or click the quick prompt chips below.</span>
+<span style="color: #64748b;">================================================================================</span>
+        `);
+      }
+
+      printGreeting();
+
+      // Command Execution Engine
+      function runCmd(raw) {
+        const cmdStr = raw.trim();
+        if (!cmdStr) return;
+
+        appendLine(`<span class="term-prompt-label">guest@clebsch:~$</span> <span class="term-cmd-text">${escapeHtml(cmdStr)}</span>`);
+
+        const parts = cmdStr.toLowerCase().split(" ");
+        const action = parts[0];
+        const args = parts.slice(1);
+
+        switch (action) {
+          case "help":
+            appendLine(`
+<span style="color: #10b981; font-weight: 700;">CLEBSCH OS COMMAND REFERENCE:</span>
+  <span style="color: #ffffff; font-weight: 600;">help</span>       : Display this system guide
+  <span style="color: #ffffff; font-weight: 600;">about</span>      : Overview of Clebsch Robotics Club &amp; Mission
+  <span style="color: #ffffff; font-weight: 600;">wings</span>      : Technical engineering departments &amp; wings
+  <span style="color: #ffffff; font-weight: 600;">projects</span>   : Active autonomous &amp; combat robotics prototypes
+  <span style="color: #ffffff; font-weight: 600;">events</span>     : Conclaves, national championships &amp; hackathons
+  <span style="color: #ffffff; font-weight: 600;">team</span>       : Core leadership personnel &amp; contact info
+  <span style="color: #ffffff; font-weight: 600;">specs</span>      : Hardware specifications of combat &amp; autonomous bots
+  <span style="color: #ffffff; font-weight: 600;">ping</span>       : Test node latency &amp; packet round-trip time
+  <span style="color: #ffffff; font-weight: 600;">matrix</span>     : Stream live binary neural matrix cascade
+  <span style="color: #ffffff; font-weight: 600;">join</span>       : Open cadet recruitment portal (main site)
+  <span style="color: #ffffff; font-weight: 600;">contact</span>    : Official communications &amp; lab address
+  <span style="color: #ffffff; font-weight: 600;">whoami</span>     : Current terminal session user identity
+  <span style="color: #ffffff; font-weight: 600;">clear</span>      : Flush terminal output buffer
+  <span style="color: #ffffff; font-weight: 600;">exit</span>       : Return to main website portal
+            `);
+            break;
+
+          case "about":
+            appendLine(`
+<span style="color: #10b981; font-weight: 700;">[CLEBSCH ROBOTICS OVERVIEW]</span>
+Clebsch Robotics Club is the flagship engineering research unit at PW IOI, Lucknow.
+We engineer autonomous mobile robots (AMRs), high-kinetic combat war machines, 
+multi-agent drone swarms, and high-speed embedded real-time systems.
+<span style="color: #94a3b8;">Location: Advanced Robotics Research Lab, Block-IV, PW IOI, Lucknow.</span>
+            `);
+            break;
+
+          case "wings":
+            appendLine(`
+<span style="color: #10b981; font-weight: 700;">[TECHNICAL DEPARTMENTS &amp; WINGS]</span>
+  1. <span style="color: #ffffff; font-weight: 700;">AUTONOMOUS &amp; ROS2</span>   : 3D LiDAR SLAM, Navigation2, Trajectory Planners
+  2. <span style="color: #ffffff; font-weight: 700;">COMBAT ROBOTICS</span>     : 60kg Hardox Spinners, Pneumatic Flippers, CAD/FEA
+  3. <span style="color: #ffffff; font-weight: 700;">DRONES &amp; UAV SWARMS</span> : ArduPilot Autonomous Waypoints, FPV Drone Swarms
+  4. <span style="color: #ffffff; font-weight: 700;">AI &amp; VISION LAB</span>      : YOLOv10 TensorRT, Jetson Orin Edge Perception
+  5. <span style="color: #ffffff; font-weight: 700;">EMBEDDED SYSTEMS</span>    : STM32 FreeRTOS, Custom 4-Layer Motor Drive PCBs
+            `);
+            break;
+
+          case "projects":
+            appendLine(`
+<span style="color: #10b981; font-weight: 700;">[ACTIVE RESEARCH &amp; COMBAT PROTOTYPES]</span>
+  • <span style="color: #ffffff; font-weight: 700;">Aegis-X Quadruped</span>     : 12-DOF Quadruped with Jetson Orin &amp; 3D LiDAR
+  • <span style="color: #ffffff; font-weight: 700;">Vortex Combat Spinner</span> : 10,000 RPM Hardox-500 Asymmetric Drum Weapon
+  • <span style="color: #ffffff; font-weight: 700;">SkyGuardian Hexacopter</span>: Autonomous thermal surveillance &amp; package drop UAV
+  • <span style="color: #ffffff; font-weight: 700;">CyberArm 6-DOF</span>        : 0.05mm precision haptic teleoperated manipulator
+  • <span style="color: #ffffff; font-weight: 700;">RoboSoccer Striker</span>    : Omnidirectional 4-wheel dribbler with vision tracking
+            `);
+            break;
+
+          case "team":
+            appendLine(`
+<span style="color: #10b981; font-weight: 700;">[CLEBSCH CORE LEADERSHIP DIRECTORY]</span>
+  • <span style="color: #ffffff; font-weight: 700;">Pratik Kumar Verma</span>      : Club President (<span style="color: #10b981;">pratik.varma.sot25@pwioi.com</span>)
+  • <span style="color: #ffffff; font-weight: 700;">Gaurav Dey</span>              : Club Vice President (<span style="color: #10b981;">gaurav.dey.sot25@pwioi.com</span>)
+  • <span style="color: #ffffff; font-weight: 700;">Suryansh Yadav</span>          : Technical Advisor &amp; Club Mentor
+  • <span style="color: #ffffff; font-weight: 700;">Rashi Tiwari</span>            : Technical Department (<span style="color: #10b981;">rashi.tiwari.sot25@pwioi.com</span>)
+  • <span style="color: #ffffff; font-weight: 700;">Saloni Kumari</span>           : R&amp;D Department
+  • <span style="color: #ffffff; font-weight: 700;">Bhoomika Pal</span>            : Support &amp; Operation Executive
+  • <span style="color: #ffffff; font-weight: 700;">Anurag Kumar Jaiswara</span>  : Operations Coordinator (Lab)
+            `);
+            break;
+
+          case "events":
+            appendLine(`
+<span style="color: #10b981; font-weight: 700;">[UPCOMING EVENTS &amp; COMPETITIONS]</span>
+  • <span style="color: #ffffff;">RoboClash National Combat Wars 2026</span> (Main Arena Heavyweight Championship)
+  • <span style="color: #ffffff;">Autonomous Maze Solver &amp; Line Following Grand Prix</span>
+  • <span style="color: #ffffff;">Autonomous Drone Swarm AI Challenge</span>
+  • <span style="color: #ffffff;">Winter Embedded Microcontroller Bootcamp</span>
+            `);
+            break;
+
+          case "specs":
+            appendLine(`
+<span style="color: #10b981; font-weight: 700;">[SYSTEM HARDWARE TELEMETRY]</span>
+  • Primary Controller : NVIDIA Jetson Orin Nano (40 TOPS AI Compute)
+  • Motor Inverters    : VESC 6.0 Dual FOC Controller @ 60V 100A
+  • Sensors            : Mid-360 3D LiDAR (40m range), RealSense D435i Stereo
+  • Battery Chemistry  : 12S 5000mAh 75C Graphene LiPo Pack
+  • Bus Architecture   : CAN-FD / EtherCAT @ 1000Hz Real-Time Loop
+            `);
+            break;
+
+          case "ping":
+            const pingTime = (Math.random() * 2.8 + 0.9).toFixed(2);
+            appendLine(`<span style="color: #94a3b8;">64 bytes from 127.0.0.1 (clebsch-telemetry-gateway): icmp_seq=1 ttl=64 time=${pingTime} ms</span>`);
+            appendLine(`<span style="color: #10b981; font-weight: 700;">--- TELEMETRY LINK: 0% PACKET LOSS // EXCELLENT LATENCY ---</span>`);
+            break;
+
+          case "matrix":
+            appendLine(`<span style="color: #10b981; font-family: var(--font-mono); font-size: 0.8rem;">01000011 01001100 01000101 01000011 01010011 01000011 01001000<br/>INITIALIZING HIGH-SPEED NEURAL STREAM... [AUTHENTICATED]</span>`);
+            if (window.cyberAudio) window.cyberAudio.playAccessGranted();
+            break;
+
+          case "join":
+          case "apply":
+            appendLine(`<span style="color: #10b981;">Launching Cadet Recruitment Pipeline in main site...</span>`);
+            setTimeout(() => {
+              window.location.href = "index.html#terminal";
+            }, 800);
+            break;
+
+          case "contact":
+            appendLine(`
+<span style="color: #10b981; font-weight: 700;">[CLEBSCH COMMUNICATIONS]</span>
+  • Email   : <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pw.clebsch@gmail.com" target="_blank" style="color: #10b981;">pw.clebsch@gmail.com</a>
+  • Lab     : Advanced Robotics Lab, PW IOI, Platinum Mall, Lucknow
+            `);
+            break;
+
+          case "whoami":
+            appendLine(`<span style="color: #ffffff;">guest_cadet@clebsch-workstation [ROLE: RESEARCH CADET / GUEST]</span>`);
+            break;
+
+          case "clear":
+            log.innerHTML = "";
+            break;
+
+          case "exit":
+            window.location.href = "index.html";
+            break;
+
+          default:
+            appendLine(`<span style="color: #ef4444;">Command not recognized: '${escapeHtml(action)}'. Type <span style="color: #10b981; font-weight: 700;">'help'</span> for list of available commands.</span>`);
+            break;
+        }
+
+        if (window.cyberAudio) window.cyberAudio.playTerminalKey();
+      }
+
+      // Form Submit
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const val = input.value;
+        if (val.trim()) {
+          history.push(val);
+          historyIdx = history.length;
+          runCmd(val);
+          input.value = "";
+        }
+      });
+
+      // Key Navigation for History
+      input.addEventListener("keydown", (e) => {
+        if (window.cyberAudio) window.cyberAudio.playTerminalKey();
+
+        if (e.key === "ArrowUp") {
+          if (historyIdx > 0) {
+            historyIdx--;
+            input.value = history[historyIdx] || "";
+          }
+        } else if (e.key === "ArrowDown") {
+          if (historyIdx < history.length - 1) {
+            historyIdx++;
+            input.value = history[historyIdx] || "";
+          } else {
+            historyIdx = history.length;
+            input.value = "";
+          }
+        }
+      });
+
+      // Quick Chips Click
+      document.querySelectorAll(".quick-chip").forEach(chip => {
+        chip.addEventListener("click", () => {
+          const cmd = chip.dataset.cmd;
+          input.value = cmd;
+          runCmd(cmd);
+          input.value = "";
+          if (window.cyberAudio) window.cyberAudio.playClick();
+        });
+      });
+
+      // Main Portal Return Handler
+      document.querySelectorAll(".term-back-btn, .term-page-brand").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          if (window.cyberAudio) window.cyberAudio.playClick();
+          
+          if (window.history.length > 1 && document.referrer && document.referrer.includes("index.html")) {
+            window.history.back();
+            return;
+          }
+          window.location.href = "index.html#terminal";
+        });
+      });
+
+      function escapeHtml(str) {
+        return str.replace(/[&<>"']/g, function(m) {
+          switch (m) {
+            case '&': return '&amp;';
+            case '<': return '&lt;';
+            case '>': return '&gt;';
+            case '"': return '&quot;';
+            case "'": return '&#39;';
+            default: return m;
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

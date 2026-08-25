@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" width="100%" height="100%">
+  <defs>
+    <!-- Monochrome Gradients -->
+    <radialGradient id="vx-ambient" cx="50%" cy="45%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="60%" stop-color="#0f172a" stop-opacity="0.0"/>
+    </radialGradient>
+    <linearGradient id="vx-drum-metal" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="25%" stop-color="#cbd5e1"/>
+      <stop offset="70%" stop-color="#64748b"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="vx-chassis" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#090d16"/>
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="glow-white" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="shadow-deep" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient Backdrop -->
+  <rect x="0" y="0" width="600" height="360" fill="url(#vx-ambient)"/>
+
+  <!-- Arena Target Rings in White/Gray -->
+  <g opacity="0.3">
+    <circle cx="300" cy="180" r="140" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="6,8"/>
+    <circle cx="300" cy="180" r="95" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,6"/>
+    <line x1="60" y1="180" x2="540" y2="180" stroke="#ffffff" stroke-width="1" stroke-dasharray="4,6" opacity="0.3"/>
+  </g>
+
+  <!-- Ground Shadow -->
+  <ellipse cx="300" cy="296" rx="210" ry="24" fill="#000000" opacity="0.75"/>
+
+  <!-- Main Combat Robot Assembly in White/Gray -->
+  <g filter="url(#shadow-deep)">
+    <!-- Low-Slung Solid Polyurethane Combat Drive Wheels -->
+    <rect x="75" y="195" width="45" height="74" rx="10" fill="#0f172a" stroke="#ffffff" stroke-width="2"/>
+    <line x1="75" y1="215" x2="120" y2="215" stroke="#94a3b8" stroke-width="1.5"/>
+    <line x1="75" y1="235" x2="120" y2="235" stroke="#94a3b8" stroke-width="1.5"/>
+    <line x1="75" y1="255" x2="120" y2="255" stroke="#94a3b8" stroke-width="1.5"/>
+
+    <rect x="480" y="195" width="45" height="74" rx="10" fill="#0f172a" stroke="#ffffff" stroke-width="2"/>
+    <line x1="480" y1="215" x2="525" y2="215" stroke="#94a3b8" stroke-width="1.5"/>
+    <line x1="480" y1="235" x2="525" y2="235" stroke="#94a3b8" stroke-width="1.5"/>
+    <line x1="480" y1="255" x2="525" y2="255" stroke="#94a3b8" stroke-width="1.5"/>
+
+    <!-- Heavy Titanium Side Armored Wedges -->
+    <polygon points="105,255 170,165 430,165 495,255 460,275 140,275" fill="url(#vx-chassis)" stroke="#cbd5e1" stroke-width="2"/>
+    <polygon points="135,250 185,178 415,178 465,250" fill="#0b0f19" stroke="#64748b" stroke-width="1.5"/>
+
+    <!-- Battle Rivets / Fasteners -->
+    <g fill="#ffffff">
+      <circle cx="150" cy="260" r="3"/>
+      <circle cx="180" cy="200" r="3"/>
+      <circle cx="420" cy="200" r="3"/>
+      <circle cx="450" cy="260" r="3"/>
+    </g>
+
+    <!-- Center 10,000 RPM Hardox-500 Spinning Drum Weapon -->
+    <rect x="220" y="140" width="160" height="108" rx="16" fill="url(#vx-drum-metal)" stroke="#ffffff" stroke-width="2.5" filter="url(#glow-white)"/>
+    
+    <!-- Tungsten Carbide Kinetic Impact Teeth -->
+    <rect x="242" y="122" width="34" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect x="324" y="122" width="34" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect x="283" y="238" width="34" height="26" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+
+    <!-- High-Speed Drum Weapon Texture & Rotor Slots -->
+    <line x1="240" y1="170" x2="360" y2="170" stroke="#ffffff" stroke-width="2"/>
+    <line x1="240" y1="195" x2="360" y2="195" stroke="#1e293b" stroke-width="3"/>
+    <line x1="240" y1="215" x2="360" y2="215" stroke="#ffffff" stroke-width="2"/>
+
+    <!-- Kinetic Shockwaves & Impact Sparks in White/Silver -->
+    <g filter="url(#glow-white)">
+      <line x1="220" y1="185" x2="140" y2="145" stroke="#ffffff" stroke-width="2" stroke-dasharray="6,8"/>
+      <circle cx="140" cy="145" r="3" fill="#ffffff"/>
+      <line x1="380" y1="185" x2="460" y2="145" stroke="#ffffff" stroke-width="2" stroke-dasharray="6,8"/>
+      <circle cx="460" cy="145" r="3" fill="#ffffff"/>
+      <line x1="220" y1="210" x2="155" y2="240" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,6"/>
+      <line x1="380" y1="210" x2="445" y2="240" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,6"/>
+    </g>
+  </g>
+</svg>
