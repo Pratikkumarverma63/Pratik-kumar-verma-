@@ -1,96 +1,1887 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>HTML Demo Page</title>
-   
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CLEBSCH ROBOTICS CLUB | Autonomous Intelligence &amp; 3D Lab</title>
+  <meta name="description" content="Clebsch Robotics Club is the premier collegiate engineering research collective designing autonomous mobile robots, heavyweight combat machines, AI drone swarms, and embedded robotics.">
+  <meta name="keywords" content="Clebsch, Clebsch Robotics, 3D Robotics, Combat Bots, Autonomous Rovers, Spline 3D, ROS2, Drones, PW IOI Lucknow">
+
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Iceland&family=Rajdhani:wght@500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Global Link Interceptor (Guarantees all 3D scene buttons redirect to Pratik Kumar Verma's LinkedIn) -->
+  <script>
+    (function() {
+      const pratikLinkedIn = "https://www.linkedin.com/in/pratik-kumar-verma-b402a1382/";
+      const rawOpen = window.open;
+      window.open = function(url, target, features) {
+        if (typeof url === "string") {
+          if (
+            url.includes("victor-granado") ||
+            url.includes("granado") ||
+            url.includes("victor") ||
+            (url.includes("linkedin.com") &&
+              !url.includes("pratik-kumar-verma") &&
+              !url.includes("gaurav-dey") &&
+              !url.includes("suryansh-yadav") &&
+              !url.includes("rashi-tiwari") &&
+              !url.includes("saloni-kumari") &&
+              !url.includes("bhoomika-pal") &&
+              !url.includes("anurag-kumar-jaiswara"))
+          ) {
+            url = pratikLinkedIn;
+          }
+        }
+        return rawOpen.call(window, url, target, features);
+      };
+    })();
+
+    // Immediate Theme Pre-loader (Guarantees Crisp White Theme by Default)
+    (function() {
+      const saved = localStorage.getItem("clebsch-theme") || localStorage.getItem("clebsch_theme") || "light";
+      if (saved === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+      } else {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    })();
+  </script>
+
+  <!-- Spline 3D & Three.js Web Components -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.54/build/spline-viewer.js"></script>
+
+  <!-- Core Stylesheets -->
+  <link rel="icon" type="image/png" href="assets/clebsch-logo-light.png">
+  <link rel="stylesheet" href="css/style.css?v=16.0">
+  <link rel="stylesheet" href="css/components.css?v=16.0">
 </head>
-<body bgcolor="lightgrey" text="black" link="blue" vlink="red" alink="green">
-    <header>
-        <h1>My Website</h1>
-        <nav>
-            <a href="#">Home</a> | 
-            <a href="#">About</a> | 
-            <a href="#">Contact</a>
-        </nav>
-    </header>
-    <main>
-        <section>
-            <h2>order list</h2><ol>
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>JavaScript</li>
-            </ol>
-            <h2>Unordered List</h2>
-            <ul>
-                <li>Apple</li>
-                <li>Mango</li>
-                <li>Banana</li>
-            </ul>
-        </section>
-        <h2>Text Formatting</h2>
-            <p>This is a <b>bold</b>, <i>italic</i>, and <u>underlined</u> text.</p>
-            <p>Math: H<sub>2</sub>O, E = mc<sup>2</sup></p>
-            <p><mark>Highlighted</mark> and <del>Deleted</del> text.</p>
-        </section>
+<body class="light-theme">
+  <!-- ========================================================================
+       LUXURY NAVIGATION
+       ======================================================================== -->
+  <header class="cyber-nav">
+    <div class="container nav-container">
+      <a href="#hero" class="brand-logo">
+        <img src="assets/clebsch-icon-light.png" alt="Clebsch Robotics Logo" class="brand-logo-img logo-light">
+        <img src="assets/clebsch-icon-dark.png" alt="Clebsch Robotics Logo" class="brand-logo-img logo-dark">
+        <div>
+          <span>CLEBSCH</span>
+          <span class="brand-telemetry"><i class="fa-solid fa-circle mr-1" style="font-size: 5px; color: #10b981; vertical-align: middle;"></i>PW IOI LUCKNOW</span>
+        </div>
+      </a>
 
-        <section>
-            <h2>Lists</h2>
-        <section>
-            <h2>Table Example</h2>
-            <table border="2" cellpadding="10" cellspacing="5">
-                <caption>Student Marks</caption>
-                <tr>
-                    <th>Name</th>
-                    <th>Subject</th>
-                    <th>Marks</th>
-                </tr>
-                <tr>
-                    <td>Rahul</td>
-                    <td>Math</td>
-                    <td>95</td>
-                </tr>
-                <tr>
-                    <td>Priya</td>
-                    <td>Science</td>
-                    <td>89</td>
-                </tr>
-            </table>
-        </section>
+      <nav>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#about"><i class="fa-solid fa-microchip mr-2"></i>About</a></li>
+          <li><a href="#robot-lab"><i class="fa-solid fa-cube mr-2"></i>3D Lab</a></li>
+          <li><a href="#projects"><i class="fa-solid fa-gear mr-2"></i>Prototypes</a></li>
+          <li><a href="#gallery"><i class="fa-solid fa-images mr-2"></i>3D Gallery</a></li>
+          <li><a href="#events"><i class="fa-solid fa-calendar-check mr-2"></i>Events</a></li>
+          <li><a href="#team"><i class="fa-solid fa-users mr-2"></i>Core Team</a></li>
+          <li><a href="#contact"><i class="fa-solid fa-envelope mr-2"></i>Contact</a></li>
+          <li><a href="terminal.html" target="_blank" rel="noopener noreferrer" class="nav-terminal-btn" title="Launch Interactive Terminal in New Tab"><span class="terminal-live-dot"></span><span>Terminal</span><i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.65rem; opacity: 0.75; margin-left: 2px;"></i></a></li>
+        </ul>
+      </nav>
 
-        <section>
-            <h2>Forms Example</h2>
-            <form>
-                <label for="name">Name:</label>
-                <input type="text" id="name"><br><br>
-                
-                <label for="gender">Gender:</label>
-                <select id="gender">
-                    <option>Male</option>
-                    <option>Female</option>
-                </select><br><br>
+      <div class="nav-actions">
+        <!-- THEME TOGGLE BUTTON: White (Default) ↔ Night Mode -->
+        <button class="theme-toggle-btn" id="theme-toggle-btn" title="Toggle White / Night Theme" aria-label="Toggle theme">
+          <span class="theme-toggle-track">
+            <span class="theme-toggle-thumb">
+              <i class="fa-solid fa-moon" id="theme-icon"></i>
+            </span>
+          </span>
+          <span id="theme-label">Light</span>
+        </button>
+        <button class="audio-btn" id="audio-toggle-btn" title="Toggle Futuristic Audio SFX">
+          <i class="fa-solid fa-volume-high" id="audio-icon"></i>
+          <span id="audio-label">SFX: ON</span>
+        </button>
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle Navigation Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
 
-                <label><input type="checkbox"> Subscribe</label><br><br>
-                <button type="submit">Submit</button>
-            </form>
-        </section>
+  <!-- ========================================================================
+       FULL-SCREEN IMMERSIVE 3D HERO — SPLINE FULL VIEWPORT + PURE FLOATING TITLE
+       ======================================================================== -->
+  <section class="hero-fullscreen" id="hero">
 
-        <section>
-            <h2>Media</h2>
-            <p>Image:</p>
-            <img src="https://via.placeholder.com/150" alt="Demo Image"><br><br>
-            <p>Audio:</p>
-            <audio controls>
-                <source src="demo.mp3" type="audio/mpeg">
-            </audio><br><br>
-            <p>Video:</p>
-            <video width="320" height="240" controls>
-                <source src="demo.mp4" type="video/mp4">
-            </video>
-        </section>
-    </main>
-   </a> <footer>
-        <p>&copy; 2024 My Website</p> | <p>privacy policy</p> | <p>terms of service</p>
-       
-    </footer>
+    <!-- GIANT FUTURISTIC WATERMARK BACKDROP BEHIND BOT -->
+    <div class="hero-bg-backdrop-text" aria-hidden="true">
+      <span class="backdrop-big-title">CLEBSCH</span>
+    </div>
+
+    <!-- FULL-SCREEN Spline 3D Scene (takes entire viewport 100vw x 100vh) -->
+    <div class="hero-spline-fullbg" id="hero-spline-container">
+      <spline-viewer id="hero-spline-viewer" url="https://prod.spline.design/QQB28e6tSL1YGZ1o/scene.splinecode"></spline-viewer>
+    </div>
+
+    <!-- PURE FLOATING TITLE -->
+    <div class="hero-floating-title-wrap">
+      <h1 class="hero-single-title">CLEBSCH ROBOTICS CLUB</h1>
+      <div class="hero-floating-actions">
+        <a href="#robot-lab" class="cyber-btn cyber-btn-cyan">
+          <i class="fa-solid fa-cube mr-2"></i>Explore 3D Lab
+        </a>
+        <a href="#projects" class="cyber-btn cyber-btn-outline">
+          <i class="fa-solid fa-gear mr-2"></i>View Fleet Prototypes
+        </a>
+      </div>
+    </div>
+
+    <!-- SCROLL INDICATOR -->
+    <div class="hero-scroll-bottom">
+      <a href="#about" class="scroll-link">
+        <span class="scroll-mouse"><span class="scroll-wheel"></span></span>
+        <span class="font-mono text-xs text-muted" style="margin-top: 0.4rem; font-weight: 600;">SCROLL</span>
+      </a>
+    </div>
+
+  </section>
+
+  <!-- ========================================================================
+       ABOUT SECTION & TECHNICAL RESEARCH WINGS (HIGH-TECH & AUTHENTIC)
+       ======================================================================== -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag"><i class="fa-solid fa-layer-group mr-2"></i>Technical Wings</span>
+        <h2 class="section-title">TECHNICAL RESEARCH WINGS</h2>
+        <p class="section-subtitle">
+          Core engineering divisions focused on autonomous systems, mechanical powertrains, and aerial robotics.
+        </p>
+      </div>
+
+      <!-- Technical Research Wings Layout -->
+      <div class="command-center-dashboard">
+        <div class="command-center-grid">
+          <!-- ==================================================================
+               DIVISION 01: FEATURED AUTONOMOUS & ROS2 (LARGE PANEL)
+               ================================================================== -->
+          <div class="cmd-panel cmd-featured-panel tilt-card" data-division="01">
+            <div class="card-glare"></div>
+            
+            <div class="cmd-panel-header">
+              <div class="cmd-div-identity">
+                <span class="cmd-div-tag">DIVISION 01</span>
+                <span class="cmd-coord-label">[SYS_01 // AUTONOMOUS_CORE]</span>
+              </div>
+              <div class="cmd-wing-badge">
+                <i class="fa-solid fa-microchip mr-1"></i> ROS2 ARCHITECTURE
+              </div>
+            </div>
+
+            <!-- Panel Content Body -->
+            <div class="cmd-featured-body">
+              <div class="cmd-title-group">
+                <div class="cmd-icon-badge">
+                  <i class="fa-solid fa-brain"></i>
+                </div>
+                <div>
+                  <h3 class="cmd-panel-title">AUTONOMOUS &amp; ROS2</h3>
+                  <span class="cmd-focus-line">SLAM • Path Planning • Navigation2 • Sensor Fusion</span>
+                </div>
+              </div>
+
+              <p class="cmd-panel-desc">
+                Engineering autonomous mobile robots using ROS2 middleware, implementing real-time 2D/3D LiDAR SLAM, costmap path planning, and sensor fusion in simulation and physical testbeds.
+              </p>
+
+              <!-- Technical Vector Schematic: ROS2 Computational Pipeline -->
+              <div class="cmd-schematic-box">
+                <div class="schematic-header">
+                  <span><i class="fa-solid fa-diagram-project mr-1"></i> COMPUTE &amp; DATAFLOW PIPELINE</span>
+                  <span class="font-mono text-xs text-muted">ROS2 NODE GRAPH</span>
+                </div>
+                <div class="schematic-flow-grid">
+                  <div class="schematic-node">
+                    <div class="node-icon"><i class="fa-solid fa-satellite-dish"></i></div>
+                    <div class="node-info">
+                      <span class="node-name">Sensors (LiDAR/IMU)</span>
+                      <span class="node-sub">/scan • /imu/data</span>
+                    </div>
+                  </div>
+                  <div class="schematic-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                  <div class="schematic-node node-highlight">
+                    <div class="node-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <div class="node-info">
+                      <span class="node-name">Cartographer SLAM</span>
+                      <span class="node-sub">/map • /tf tree</span>
+                    </div>
+                  </div>
+                  <div class="schematic-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                  <div class="schematic-node">
+                    <div class="node-icon"><i class="fa-solid fa-route"></i></div>
+                    <div class="node-info">
+                      <span class="node-name">Nav2 Planner</span>
+                      <span class="node-sub">/cmd_vel output</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Real Core Competencies / Focus Pillars -->
+              <div class="cmd-pillars-list">
+                <div class="cmd-pillar-item">
+                  <div class="pillar-bullet"><i class="fa-solid fa-route"></i></div>
+                  <div class="pillar-content">
+                    <span class="pillar-title">Path Planning &amp; Waypoints</span>
+                    <p class="pillar-text">Real-time global/local costmaps and dynamic obstacle avoidance algorithms.</p>
+                  </div>
+                </div>
+
+                <div class="cmd-pillar-item">
+                  <div class="pillar-bullet"><i class="fa-solid fa-laptop-code"></i></div>
+                  <div class="pillar-content">
+                    <span class="pillar-title">Simulation &amp; Node Architecture</span>
+                    <p class="pillar-text">Physics modeling in Gazebo and custom C++/Python ROS2 publisher-subscriber nodes.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action Footer -->
+              <div class="cmd-panel-footer">
+                <div class="cmd-tags-strip">
+                  <span class="cmd-tech-chip">ROS2 Humble</span>
+                  <span class="cmd-tech-chip">Python / C++</span>
+                  <span class="cmd-tech-chip">Gazebo Sim</span>
+                  <span class="cmd-tech-chip">Nav2 Stack</span>
+                  <span class="cmd-tech-chip">Cartographer</span>
+                </div>
+                <a href="#projects" class="cmd-explore-btn" data-explore-wing="ai" title="Explore Autonomous Systems & AI Fleet">
+                  <span>Explore Prototypes</span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- ==================================================================
+               RIGHT SIDE STACK: DIVISIONS 02 & 03
+               ================================================================== -->
+          <div class="cmd-side-stack">
+            <!-- DIVISION 02: COMBAT & MECHANICAL DESIGN -->
+            <div class="cmd-panel cmd-sub-panel tilt-card" data-division="02">
+              <div class="card-glare"></div>
+
+              <div class="cmd-panel-header">
+                <div class="cmd-div-identity">
+                  <span class="cmd-div-tag">DIVISION 02</span>
+                  <span class="cmd-coord-label">[SYS_02 // MECH_DRIVE]</span>
+                </div>
+                <div class="cmd-wing-badge">
+                  <i class="fa-solid fa-gears mr-1"></i> CAD &amp; DRIVES
+                </div>
+              </div>
+
+              <div class="cmd-sub-body">
+                <div class="cmd-title-group">
+                  <div class="cmd-icon-badge">
+                    <i class="fa-solid fa-shield-halved"></i>
+                  </div>
+                  <div>
+                    <h3 class="cmd-panel-title">COMBAT &amp; MECHANICAL DESIGN</h3>
+                    <span class="cmd-focus-line">CAD Modeling • Chassis Fabrication • High-Torque Drives</span>
+                  </div>
+                </div>
+
+                <p class="cmd-panel-desc">
+                  Designing robust robotic chassis, planetary gear transmissions, and structural impact protection using CAD modeling and rapid prototyping.
+                </p>
+
+                <!-- Technical Schematic: Drivetrain Architecture -->
+                <div class="cmd-schematic-box compact-schematic">
+                  <div class="schematic-flow-grid">
+                    <div class="schematic-node">
+                      <div class="node-icon"><i class="fa-solid fa-cube"></i></div>
+                      <div class="node-info">
+                        <span class="node-name">Chassis CAD</span>
+                        <span class="node-sub">SolidWorks 3D</span>
+                      </div>
+                    </div>
+                    <div class="schematic-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="schematic-node node-highlight">
+                      <div class="node-icon"><i class="fa-solid fa-gear"></i></div>
+                      <div class="node-info">
+                        <span class="node-name">BLDC Powertrain</span>
+                        <span class="node-sub">Planetary Reducer</span>
+                      </div>
+                    </div>
+                    <div class="schematic-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="schematic-node">
+                      <div class="node-icon"><i class="fa-solid fa-hammer"></i></div>
+                      <div class="node-info">
+                        <span class="node-name">Fabrication</span>
+                        <span class="node-sub">CNC &amp; 3D Print</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Action Footer -->
+                <div class="cmd-panel-footer">
+                  <div class="cmd-tags-strip">
+                    <span class="cmd-tech-chip">SolidWorks</span>
+                    <span class="cmd-tech-chip">3D Printing</span>
+                    <span class="cmd-tech-chip">BLDC Motors</span>
+                    <span class="cmd-tech-chip">Chassis CAD</span>
+                  </div>
+                  <a href="#projects" class="cmd-explore-btn" data-explore-wing="combat" title="Explore Combat Robotics Fleet">
+                    <span>Explore Prototypes</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- DIVISION 03: UAV & AERIAL ROBOTICS -->
+            <div class="cmd-panel cmd-sub-panel tilt-card" data-division="03">
+              <div class="card-glare"></div>
+
+              <div class="cmd-panel-header">
+                <div class="cmd-div-identity">
+                  <span class="cmd-div-tag">DIVISION 03</span>
+                  <span class="cmd-coord-label">[SYS_03 // AVIONICS]</span>
+                </div>
+                <div class="cmd-wing-badge">
+                  <i class="fa-solid fa-helicopter mr-1"></i> AERO AVIONICS
+                </div>
+              </div>
+
+              <div class="cmd-sub-body">
+                <div class="cmd-title-group">
+                  <div class="cmd-icon-badge">
+                    <i class="fa-solid fa-helicopter"></i>
+                  </div>
+                  <div>
+                    <h3 class="cmd-panel-title">UAV &amp; AERIAL ROBOTICS</h3>
+                    <span class="cmd-focus-line">Drone Assembly • Flight Controllers • Telemetry</span>
+                  </div>
+                </div>
+
+                <p class="cmd-panel-desc">
+                  Building custom multi-rotor UAV platforms, tuning PID flight controller firmware (ArduPilot / Betaflight), and configuring long-range wireless telemetry.
+                </p>
+
+                <!-- Technical Schematic: Flight Control Stack -->
+                <div class="cmd-schematic-box compact-schematic">
+                  <div class="schematic-flow-grid">
+                    <div class="schematic-node">
+                      <div class="node-icon"><i class="fa-solid fa-tower-broadcast"></i></div>
+                      <div class="node-info">
+                        <span class="node-name">Telemetry Link</span>
+                        <span class="node-sub">2.4GHz / ELRS</span>
+                      </div>
+                    </div>
+                    <div class="schematic-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="schematic-node node-highlight">
+                      <div class="node-icon"><i class="fa-solid fa-microchip"></i></div>
+                      <div class="node-info">
+                        <span class="node-name">Flight Controller</span>
+                        <span class="node-sub">Betaflight / ArduPilot</span>
+                      </div>
+                    </div>
+                    <div class="schematic-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="schematic-node">
+                      <div class="node-icon"><i class="fa-solid fa-fan"></i></div>
+                      <div class="node-info">
+                        <span class="node-name">4x ESC Drive</span>
+                        <span class="node-sub">Brushless Motors</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Action Footer -->
+                <div class="cmd-panel-footer">
+                  <div class="cmd-tags-strip">
+                    <span class="cmd-tech-chip">ArduPilot</span>
+                    <span class="cmd-tech-chip">Betaflight</span>
+                    <span class="cmd-tech-chip">Telemetry</span>
+                    <span class="cmd-tech-chip">Quadcopter</span>
+                  </div>
+                  <a href="#projects" class="cmd-explore-btn" data-explore-wing="uav" title="Explore UAV & Aerial Drones Fleet">
+                    <span>Explore Prototypes</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       CLEBSCH 3D ROBOT LAB — 3-COLUMN SIDE-BY-SIDE INTERACTIVE DIAGNOSTIC SUITE
+       ======================================================================== -->
+  <section class="section" id="robot-lab">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag"><i class="fa-solid fa-cube mr-2"></i>Live 3D Diagnostic Suite</span>
+        <h2 class="section-title">CLEBSCH 3D ROBOT LAB</h2>
+        <p class="section-subtitle">
+          Interact with our active robotics prototypes in real-time 3D. Switch render modes (Solid, Wireframe, Hologram X-Ray), control auto-spin, and monitor real-time telemetry streams.
+        </p>
+      </div>
+
+      <!-- 3-Column Simultaneous Side-by-Side Fleet Grid -->
+      <div class="robot-lab-multi-grid">
+        
+        <!-- CARD 1: COMBAT BOT -->
+        <div class="robot-lab-card">
+          <div class="robot-lab-header">
+            <div class="robot-lab-title">
+              <i class="fa-solid fa-shield-halved"></i>
+              <span>Combat Bot</span>
+            </div>
+            <div class="robot-lab-id">CLB-COMBAT-01</div>
+          </div>
+
+          <div class="robot-lab-viewport" style="padding: 0; position: relative;">
+            <div class="sketchfab-embed-wrapper" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+              <div class="sketchfab-loader">
+                <div class="loader-spinner"></div>
+                <span class="loader-text"><i class="fa-solid fa-cube mr-1"></i> INITIALIZING 3D TELEMETRY...</span>
+              </div>
+              <iframe 
+                title="Combat Bot #1" 
+                frameborder="0" 
+                allowfullscreen 
+                mozallowfullscreen="true" 
+                webkitallowfullscreen="true" 
+                allow="autoplay; fullscreen; xr-spatial-tracking" 
+                xr-spatial-tracking 
+                execution-while-out-of-viewport 
+                execution-while-not-rendered 
+                sandbox="allow-scripts allow-same-origin allow-pointer-lock" 
+                data-src="https://sketchfab.com/models/7e274101e26a4ef0bd23b01db913c13c/embed?autostart=1&transparent=1&ui_infos=0&ui_watermark=0&ui_help=0&ui_settings=0&ui_inspector=0&ui_ar=0&ui_vr=0&ui_fullscreen=0&ui_hint=0&dnt=1" 
+                style="width: 100%; height: 100%; border: none; border-radius: 14px;"
+                loading="lazy"
+                onload="this.parentElement.querySelector('.sketchfab-loader')?.remove()">
+              </iframe>
+            </div>
+          </div>
+
+          <div class="robot-lab-telemetry-box">
+            <div class="robot-lab-metrics-grid">
+              <div class="mini-metric-box">
+                <div class="mini-metric-lbl"><span>VOLTAGE</span><i class="fa-solid fa-car-battery"></i></div>
+                <div class="mini-metric-val" id="c-volt">24.1 V</div>
+              </div>
+              <div class="mini-metric-box">
+                <div class="mini-metric-lbl"><span>CORE TEMP</span><i class="fa-solid fa-microchip"></i></div>
+                <div class="mini-metric-val" id="c-temp">33.7 °C</div>
+              </div>
+              <div class="mini-metric-box">
+                <div class="mini-metric-lbl"><span>WEAPON RPM</span><i class="fa-solid fa-fan"></i></div>
+                <div class="mini-metric-val" id="c-rpm">10,105 RPM</div>
+              </div>
+              <div class="mini-metric-box">
+                <div class="mini-metric-lbl"><span>IMPACT ENERGY</span><i class="fa-solid fa-bolt"></i></div>
+                <div class="mini-metric-val">28.0 kJ</div>
+              </div>
+            </div>
+            <div class="mini-radar-strip">
+              <span><i class="fa-solid fa-shield mr-1"></i>Hardox-500 Armor</span>
+              <span><i class="fa-solid fa-weight-hanging mr-1"></i>60kg Heavy</span>
+              <span><i class="fa-solid fa-microchip mr-1"></i>STM32H7</span>
+            </div>
+            <button class="cyber-btn cyber-btn-outline w-full open-blueprint-btn" data-project="vortex" style="padding: 0.6rem 1rem; font-size: 0.8rem;">
+              <i class="fa-solid fa-file-code mr-2"></i> View Blueprint &amp; Specs
+            </button>
+          </div>
+        </div>
+
+        <!-- CARD 2: UAV DRONE -->
+        <div class="robot-lab-card">
+          <div class="robot-lab-header">
+            <div class="robot-lab-title">
+              <i class="fa-solid fa-helicopter"></i>
+              <span>SkyGuardian UAV</span>
+            </div>
+            <div class="robot-lab-id">CLB-UAV-HEXA</div>
+          </div>
+
+          <div class="robot-lab-viewport" style="padding: 0; position: relative;">
+            <div class="sketchfab-embed-wrapper" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+              <div class="sketchfab-loader">
+                <div class="loader-spinner"></div>
+                <span class="loader-text"><i class="fa-solid fa-cube mr-1"></i> INITIALIZING 3D TELEMETRY...</span>
+              </div>
+              <iframe 
+                title="Amazon Prime Air Drone" 
+                frameborder="0" 
+                allowfullscreen 
+                mozallowfullscreen="true" 
+                webkitallowfullscreen="true" 
+                allow="autoplay; fullscreen; xr-spatial-tracking" 
+                xr-spatial-tracking 
+                execution-while-out-of-viewport 
+                execution-while-not-rendered 
+                sandbox="allow-scripts allow-same-origin allow-pointer-lock" 
+                data-src="https://sketchfab.com/models/41e1ea89a3414f94910264f0e3c868d1/embed?autostart=1&transparent=1&ui_infos=0&ui_watermark=0&ui_help=0&ui_settings=0&ui_inspector=0&ui_ar=0&ui_vr=0&ui_fullscreen=0&ui_hint=0&dnt=1" 
+                style="width: 100%; height: 100%; border: none; border-radius: 14px;"
+                loading="lazy"
+                onload="this.parentElement.querySelector('.sketchfab-loader')?.remove()">
+              </iframe>
+            </div>
+          </div>
+
+          <div class="robot-lab-telemetry-box">
+            <div class="robot-lab-metrics-grid">
+              <div class="mini-metric-box">
+                <div class="mini-metric-lbl"><span>VOLTAGE</span><i class="fa-solid fa-car-battery"></i></div>
+                <div class="mini-metric-val" id="d-volt">22.8 V</div>
+              </div>
+              <div class="mini-metric-box">
+                <div class="mini-metric-lbl"><span>ALTITUDE</span><i class="fa-solid fa-mountain"></i></div>
+                <div class="mini-metric-val" id="d-alt">48.6 m</div>
+              </div>
+              <div class="mini-metric-box">
+                <div class="mini-metric-lbl"><span>AIRSPEED</span><i class="fa-solid fa-gauge-high"></i></div>
+                <div class="mini-metric-val" id="d-spd">12.4 m/s</div>
+              </div>
+              <div class="mini-metric-box">
+                <div class="mini-metric-lbl"><span>SATELLITES</span><i class="fa-solid fa-satellite"></i></div>
+                <div class="mini-metric-val" id="d-sats">12 SATs</div>
+              </div>
+            </div>
+            <div class="mini-radar-strip">
+              <span><i class="fa-solid fa-camera mr-1"></i>Thermal 4K</span>
+              <span><i class="fa-solid fa-location-crosshairs mr-1"></i>RTK Fixed</span>
+              <span><i class="fa-solid fa-stopwatch mr-1"></i>48 Min Hover</span>
+            </div>
+            <button class="cyber-btn cyber-btn-outline w-full open-blueprint-btn" data-project="skyguardian" style="padding: 0.6rem 1rem; font-size: 0.8rem;">
+              <i class="fa-solid fa-file-code mr-2"></i> View Blueprint &amp; Specs
+            </button>
+          </div>
+        </div>
+
+        <!-- CARD 3: ROBOTIC ARM -->
+        <div class="robot-lab-card">
+          <div class="robot-lab-header">
+            <div class="robot-lab-title">
+              <i class="fa-solid fa-hand-fist"></i>
+              <span>CyberArm-6</span>
+            </div>
+            <div class="robot-lab-id">CLB-ARM-6DOF</div>
+          </div>
+
+          <div class="robot-lab-viewport" style="padding: 0; position: relative;">
+            <div class="sketchfab-embed-wrapper" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+              <div class="sketchfab-loader">
+                <div class="loader-spinner"></div>
+                <span class="loader-text"><i class="fa-solid fa-cube mr-1"></i> INITIALIZING 3D TELEMETRY...</span>
+              </div>
+              <iframe 
+                title="Robot Arm" 
+                frameborder="0" 
+                allowfullscreen 
+                mozallowfullscreen="true" 
+                webkitallowfullscreen="true" 
+                allow="autoplay; fullscreen; xr-spatial-tracking" 
+                xr-spatial-tracking 
+                execution-while-out-of-viewport 
+                execution-while-not-rendered 
+                sandbox="allow-scripts allow-same-origin allow-pointer-lock" 
+                data-src="https://sketchfab.com/models/50c5f21c338649bfa70c3b141bfed551/embed?autostart=1&transparent=1&ui_infos=0&ui_watermark=0&ui_help=0&ui_settings=0&ui_inspector=0&ui_ar=0&ui_vr=0&ui_fullscreen=0&ui_hint=0&dnt=1" 
+                style="width: 100%; height: 100%; border: none; border-radius: 14px;"
+                loading="lazy"
+                onload="this.parentElement.querySelector('.sketchfab-loader')?.remove()">
+              </iframe>
+            </div>
+          </div>
+
+          <div class="robot-lab-telemetry-box">
+            <div class="robot-lab-metrics-grid">
+              <div class="mini-metric-box">
+                <div class="mini-metric-lbl"><span>TORQUE (J1)</span><i class="fa-solid fa-rotate"></i></div>
+                <div class="mini-metric-val" id="a-t1">18.4 Nm</div>
+              </div>
+              <div class="mini-metric-box">
+                <div class="mini-metric-lbl"><span>TORQUE (J3)</span><i class="fa-solid fa-bolt"></i></div>
+                <div class="mini-metric-val" id="a-t3">12.2 Nm</div>
+              </div>
+              <div class="mini-metric-box">
+                <div class="mini-metric-lbl"><span>GRIP FORCE</span><i class="fa-solid fa-hand-fist"></i></div>
+                <div class="mini-metric-val" id="a-grip">42 N</div>
+              </div>
+              <div class="mini-metric-box">
+                <div class="mini-metric-lbl"><span>PRECISION</span><i class="fa-solid fa-crosshairs"></i></div>
+                <div class="mini-metric-val">±0.05 mm</div>
+              </div>
+            </div>
+            <div class="mini-radar-strip">
+              <span><i class="fa-solid fa-gear mr-1"></i>Harmonic FOC</span>
+              <span><i class="fa-solid fa-network-wired mr-1"></i>EtherCAT</span>
+              <span><i class="fa-solid fa-vr-cardboard mr-1"></i>Haptic Tele</span>
+            </div>
+            <button class="cyber-btn cyber-btn-outline w-full open-blueprint-btn" data-project="cyberarm" style="padding: 0.6rem 1rem; font-size: 0.8rem;">
+              <i class="fa-solid fa-file-code mr-2"></i> View Blueprint &amp; Specs
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Explore More 3D Robots CTA Button -->
+      <div class="robot-lab-explore-cta" style="margin-top: 3.5rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.8rem;">
+        <a href="robot-lab.html" target="_blank" rel="noopener noreferrer" class="cyber-btn cyber-btn-primary" style="display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.85rem 2.2rem; font-size: 0.95rem; border-radius: 999px; text-decoration: none; box-shadow: 0 0 25px rgba(16, 185, 129, 0.35);">
+          <i class="fa-solid fa-cubes-stacked"></i>
+          <span>Explore More</span>
+          <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem; margin-left: 2px;"></i>
+        </a>
+        <p style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.05em;">
+          <i class="fa-solid fa-circle text-black mr-1" style="font-size: 6px; color: #10b981;"></i> Launch dedicated full-screen 3D virtual laboratory with multi-angle diagnostic suite
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       ACTIVE ROBOTIC PROTOTYPES (FULL-WIDTH 3-COLUMN FLEET)
+       ======================================================================== -->
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag"><i class="fa-solid fa-microchip mr-2"></i>Engineering Fleet</span>
+        <h2 class="section-title">ACTIVE ROBOTIC PROTOTYPES</h2>
+        <p class="section-subtitle">
+          Explore our field-tested combat machines, autonomous rovers, soccer bots, AI companions, and UAV platforms.
+        </p>
+      </div>
+
+      <!-- Fleet Search & Controls Panel -->
+      <div class="fleet-control-panel">
+        <div class="fleet-search-box">
+          <i class="fa-solid fa-magnifying-glass fleet-search-icon"></i>
+          <input type="text" id="fleet-search-input" class="fleet-search-input" placeholder="Search fleet by keyword (e.g. LiDAR, 6-DOF, Jetson, Thermal, Hardox, Omni)..." aria-label="Search Fleet Prototypes">
+          <button id="fleet-search-clear" class="fleet-search-clear" title="Clear Search" style="display: none;"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="fleet-status-counter">
+          <span class="pulse-beacon"></span>
+          <span id="fleet-count-badge">6 / 6 PROTOTYPES ONLINE</span>
+        </div>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <button class="filter-btn proj-filter-btn active" data-filter="all">All Fleets (6)</button>
+        <button class="filter-btn proj-filter-btn" data-filter="combat">Combat &amp; Rovers</button>
+        <button class="filter-btn proj-filter-btn" data-filter="soccer">Robo-Soccer</button>
+        <button class="filter-btn proj-filter-btn" data-filter="ai">AI Assistants</button>
+        <button class="filter-btn proj-filter-btn" data-filter="uav">UAV &amp; Drones</button>
+        <button class="filter-btn proj-filter-btn" data-filter="arm">Manipulators</button>
+      </div>
+
+      <!-- Balanced 3x2 Projects G      <!-- Balanced 3x2 Projects Grid (Dedicated Prototype Cards) -->
+      <div class="projects-grid" id="projects-grid">
+        <!-- 1. Tactical Robo-Bot -->
+        <div class="project-card tilt-card" data-category="combat" data-tags="rover lidar titanium slam ground tactical terrain">
+          <div class="card-glare"></div>
+          <div class="project-media-wrap">
+            <span class="project-badge badge-combat"><i class="fa-solid fa-shield mr-1"></i>TACTICAL ROVER</span>
+            <div class="card-live-tag"><span class="mini-live-dot dot-combat"></span>ONLINE</div>
+            <img src="assets/bot-robobot.svg" alt="Project Tactical Robo-Bot">
+          </div>
+          <div class="project-body">
+            <div class="project-header-row">
+              <h3 class="project-title">Project Robo-Bot</h3>
+              <button class="telemetry-btn" data-bot="robobot" title="Toggle Live Telemetry"><i class="fa-solid fa-wave-square"></i></button>
+            </div>
+            <p class="project-desc">
+              All-terrain tactical ground rover with dual continuous tracks, 360° LiDAR obstacle detection, and hydraulic ram wedge.
+            </p>
+            <!-- Default Specs View -->
+            <div class="project-specs-mini view-specs" id="specs-robobot">
+              <div><i class="fa-solid fa-shield mr-1"></i>Titanium Hull</div>
+              <div><i class="fa-solid fa-radar mr-1"></i>360° LiDAR</div>
+              <div><i class="fa-solid fa-gauge mr-1"></i>4.2 m/s Spd</div>
+              <div><i class="fa-solid fa-mountain mr-1"></i>45° Incline</div>
+            </div>
+            <!-- Interactive Live Telemetry HUD -->
+            <div class="project-telemetry-hud view-telemetry" id="telemetry-robobot" style="display: none;">
+              <div class="telemetry-grid">
+                <div class="tele-item"><span>BATTERY</span><strong data-metric="bat">48.6 V</strong></div>
+                <div class="tele-item"><span>CORE TEMP</span><strong data-metric="temp">42.1 °C</strong></div>
+                <div class="tele-item"><span>TRACTION</span><strong data-metric="trac">98.4 %</strong></div>
+                <div class="tele-item"><span>LINK</span><strong data-metric="link">2.4 ms</strong></div>
+              </div>
+            </div>
+            <div class="card-actions-row">
+              <button class="cyber-btn cyber-btn-outline w-full open-blueprint-btn" data-project="robobot">
+                <i class="fa-solid fa-file-code mr-2"></i> View Blueprint &amp; Specs
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Robo-Soccer Striker -->
+        <div class="project-card tilt-card" data-category="soccer" data-tags="soccer omni robocup ssl dribbler solenoid striker vision">
+          <div class="card-glare"></div>
+          <div class="project-media-wrap">
+            <span class="project-badge badge-soccer"><i class="fa-solid fa-futbol mr-1"></i>ROBOCUP SSL</span>
+            <div class="card-live-tag"><span class="mini-live-dot dot-soccer"></span>ONLINE</div>
+            <img src="assets/bot-robosoccer.svg" alt="Project Robo-Soccer Striker">
+          </div>
+          <div class="project-body">
+            <div class="project-header-row">
+              <h3 class="project-title">Project Robo-Soccer</h3>
+              <button class="telemetry-btn" data-bot="robosoccer" title="Toggle Live Telemetry"><i class="fa-solid fa-wave-square"></i></button>
+            </div>
+            <p class="project-desc">
+              High-speed 3-omni directional autonomous soccer bot featuring 250V solenoid kickers, active dribblers, and 60 FPS overhead vision.
+            </p>
+            <div class="project-specs-mini view-specs" id="specs-robosoccer">
+              <div><i class="fa-solid fa-arrows-up-down-left-right mr-1"></i>3-Omni Drive</div>
+              <div><i class="fa-solid fa-bolt mr-1"></i>250V Solenoid</div>
+              <div><i class="fa-solid fa-gauge-high mr-1"></i>4.8 m/s Spd</div>
+              <div><i class="fa-solid fa-eye mr-1"></i>SSL Vision</div>
+            </div>
+            <div class="project-telemetry-hud view-telemetry" id="telemetry-robosoccer" style="display: none;">
+              <div class="telemetry-grid">
+                <div class="tele-item"><span>CAPACITOR</span><strong data-metric="cap">248.2 V</strong></div>
+                <div class="tele-item"><span>DRIBBLE RPM</span><strong data-metric="rpm">11,200</strong></div>
+                <div class="tele-item"><span>TRACK FPS</span><strong data-metric="fps">60.2 FPS</strong></div>
+                <div class="tele-item"><span>LINK</span><strong data-metric="link">1.1 ms</strong></div>
+              </div>
+            </div>
+            <div class="card-actions-row">
+              <button class="cyber-btn cyber-btn-outline w-full open-blueprint-btn" data-project="robosoccer">
+                <i class="fa-solid fa-file-code mr-2"></i> View Blueprint &amp; Specs
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. AI Personal Assistant -->
+        <div class="project-card tilt-card" data-category="ai" data-tags="ai assistant llm edge jetson spatial audio hologram companion">
+          <div class="card-glare"></div>
+          <div class="project-media-wrap">
+            <span class="project-badge badge-ai"><i class="fa-solid fa-brain mr-1"></i>EDGE AI COMPANION</span>
+            <div class="card-live-tag"><span class="mini-live-dot dot-ai"></span>ONLINE</div>
+            <img src="assets/bot-aiassistant.svg" alt="Project AI Personal Assistant">
+          </div>
+          <div class="project-body">
+            <div class="project-header-row">
+              <h3 class="project-title">AI Personal Assistant</h3>
+              <button class="telemetry-btn" data-bot="aiassistant" title="Toggle Live Telemetry"><i class="fa-solid fa-wave-square"></i></button>
+            </div>
+            <p class="project-desc">
+              Futuristic holographic robotic companion with on-device LLM intelligence, 6-mic circular spatial audio, and facial gesture perception.
+            </p>
+            <div class="project-specs-mini view-specs" id="specs-aiassistant">
+              <div><i class="fa-solid fa-brain mr-1"></i>Edge LLM</div>
+              <div><i class="fa-solid fa-microphone mr-1"></i>6-Mic Spatial</div>
+              <div><i class="fa-solid fa-video mr-1"></i>Depth Sensor</div>
+              <div><i class="fa-solid fa-bolt mr-1"></i>&lt; 180ms Lat</div>
+            </div>
+            <div class="project-telemetry-hud view-telemetry" id="telemetry-aiassistant" style="display: none;">
+              <div class="telemetry-grid">
+                <div class="tele-item"><span>LLM INFERENCE</span><strong data-metric="tok">48 tok/s</strong></div>
+                <div class="tele-item"><span>AUDIO SNR</span><strong data-metric="snr">32.4 dB</strong></div>
+                <div class="tele-item"><span>MAG-LEV</span><strong data-metric="lev">STABLE</strong></div>
+                <div class="tele-item"><span>NPU LOAD</span><strong data-metric="npu">64 %</strong></div>
+              </div>
+            </div>
+            <div class="card-actions-row">
+              <button class="cyber-btn cyber-btn-outline w-full open-blueprint-btn" data-project="aiassistant">
+                <i class="fa-solid fa-file-code mr-2"></i> View Blueprint &amp; Specs
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Project Vortex Combat Spinner -->
+        <div class="project-card tilt-card" data-category="combat" data-tags="vortex combat spinner drum hardox kinetic 60kg robowars battle">
+          <div class="card-glare"></div>
+          <div class="project-media-wrap">
+            <span class="project-badge badge-combat"><i class="fa-solid fa-fire mr-1"></i>COMBAT BOT</span>
+            <div class="card-live-tag"><span class="mini-live-dot dot-combat"></span>ARMED</div>
+            <img src="assets/bot-vortex.svg" alt="Project Vortex Combat Spinner">
+          </div>
+          <div class="project-body">
+            <div class="project-header-row">
+              <h3 class="project-title">Project Vortex</h3>
+              <button class="telemetry-btn" data-bot="vortex" title="Toggle Live Telemetry"><i class="fa-solid fa-wave-square"></i></button>
+            </div>
+            <p class="project-desc">
+              60kg National Championship Combat Spinner armed with a 10,000 RPM Hardox-500 kinetic drum delivering 28kJ impacts.
+            </p>
+            <div class="project-specs-mini view-specs" id="specs-vortex">
+              <div><i class="fa-solid fa-weight-hanging mr-1"></i>60 kg Heavy</div>
+              <div><i class="fa-solid fa-fan mr-1"></i>10k RPM Drum</div>
+              <div><i class="fa-solid fa-shield mr-1"></i>Hardox-500</div>
+              <div><i class="fa-solid fa-bolt mr-1"></i>28kJ Energy</div>
+            </div>
+            <div class="project-telemetry-hud view-telemetry" id="telemetry-vortex" style="display: none;">
+              <div class="telemetry-grid">
+                <div class="tele-item"><span>WEAPON RPM</span><strong data-metric="rpm">9,980</strong></div>
+                <div class="tele-item"><span>ESC TEMP</span><strong data-metric="esc">48.7 °C</strong></div>
+                <div class="tele-item"><span>KINETIC ENG</span><strong data-metric="eng">27.8 kJ</strong></div>
+                <div class="tele-item"><span>CURRENT</span><strong data-metric="amp">118.4 A</strong></div>
+              </div>
+            </div>
+            <div class="card-actions-row">
+              <button class="cyber-btn cyber-btn-outline w-full open-blueprint-btn" data-project="vortex">
+                <i class="fa-solid fa-file-code mr-2"></i> View Blueprint &amp; Specs
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Project SkyGuardian UAV -->
+        <div class="project-card tilt-card" data-category="uav" data-tags="drone uav hexacopter aerial flight thermal gps rtk gimbal flir">
+          <div class="card-glare"></div>
+          <div class="project-media-wrap">
+            <span class="project-badge badge-uav"><i class="fa-solid fa-plane mr-1"></i>AERIAL UAV</span>
+            <div class="card-live-tag"><span class="mini-live-dot dot-uav"></span>FLIGHT READY</div>
+            <img src="assets/bot-skyguardian.svg" alt="Project SkyGuardian Autonomous Hexacopter">
+          </div>
+          <div class="project-body">
+            <div class="project-header-row">
+              <h3 class="project-title">Project SkyGuardian</h3>
+              <button class="telemetry-btn" data-bot="skyguardian" title="Toggle Live Telemetry"><i class="fa-solid fa-wave-square"></i></button>
+            </div>
+            <p class="project-desc">
+              Autonomous search-and-rescue hexacopter with dual optical/thermal tracking gimbal and sub-centimeter RTK-GPS navigation.
+            </p>
+            <div class="project-specs-mini view-specs" id="specs-skyguardian">
+              <div><i class="fa-solid fa-plane mr-1"></i>Hexacopter</div>
+              <div><i class="fa-solid fa-camera mr-1"></i>Thermal 4K</div>
+              <div><i class="fa-solid fa-stopwatch mr-1"></i>48 Min Hover</div>
+              <div><i class="fa-solid fa-location-crosshairs mr-1"></i>RTK-GPS</div>
+            </div>
+            <div class="project-telemetry-hud view-telemetry" id="telemetry-skyguardian" style="display: none;">
+              <div class="telemetry-grid">
+                <div class="tele-item"><span>ALTITUDE</span><strong data-metric="alt">124.5 m</strong></div>
+                <div class="tele-item"><span>SATELLITES</span><strong data-metric="sat">22 FIXED</strong></div>
+                <div class="tele-item"><span>BATTERY</span><strong data-metric="uavbat">88 %</strong></div>
+                <div class="tele-item"><span>AIRSPEED</span><strong data-metric="spd">14.2 m/s</strong></div>
+              </div>
+            </div>
+            <div class="card-actions-row">
+              <button class="cyber-btn cyber-btn-outline w-full open-blueprint-btn" data-project="skyguardian">
+                <i class="fa-solid fa-file-code mr-2"></i> View Blueprint &amp; Specs
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Project CyberArm-6 -->
+        <div class="project-card tilt-card" data-category="arm" data-tags="arm cyberarm manipulator industrial 6dof haptic ethercat kinematic precision">
+          <div class="card-glare"></div>
+          <div class="project-media-wrap">
+            <span class="project-badge badge-arm"><i class="fa-solid fa-hand-fist mr-1"></i>MANIPULATOR</span>
+            <div class="card-live-tag"><span class="mini-live-dot dot-arm"></span>CALIBRATED</div>
+            <img src="assets/bot-cyberarm.svg" alt="Project CyberArm 6-DOF">
+          </div>
+          <div class="project-body">
+            <div class="project-header-row">
+              <h3 class="project-title">Project CyberArm-6</h3>
+              <button class="telemetry-btn" data-bot="cyberarm" title="Toggle Live Telemetry"><i class="fa-solid fa-wave-square"></i></button>
+            </div>
+            <p class="project-desc">
+              Industrial 6-DOF robotic manipulator featuring harmonic drive gearing, bilateral haptic teleoperation, and ±0.05mm precision.
+            </p>
+            <div class="project-specs-mini view-specs" id="specs-cyberarm">
+              <div><i class="fa-solid fa-hand-fist mr-1"></i>6-DOF Arm</div>
+              <div><i class="fa-solid fa-crosshairs mr-1"></i>±0.05mm Acc</div>
+              <div><i class="fa-solid fa-vr-cardboard mr-1"></i>Haptic Glove</div>
+              <div><i class="fa-solid fa-network-wired mr-1"></i>EtherCAT</div>
+            </div>
+            <div class="project-telemetry-hud view-telemetry" id="telemetry-cyberarm" style="display: none;">
+              <div class="telemetry-grid">
+                <div class="tele-item"><span>TORQUE J1</span><strong data-metric="torq">34.2 Nm</strong></div>
+                <div class="tele-item"><span>ACCURACY</span><strong data-metric="acc">±0.03mm</strong></div>
+                <div class="tele-item"><span>HAPTIC LINK</span><strong data-metric="hap">SYNCED</strong></div>
+                <div class="tele-item"><span>BUS LATENCY</span><strong data-metric="bus">250 µs</strong></div>
+              </div>
+            </div>
+            <div class="card-actions-row">
+              <button class="cyber-btn cyber-btn-outline w-full open-blueprint-btn" data-project="cyberarm">
+                <i class="fa-solid fa-file-code mr-2"></i> View Blueprint &amp; Specs
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       3D IMMERSIVE FLEET GALLERY SECTION
+       ======================================================================== -->
+  <section class="section" id="gallery">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag"><i class="fa-solid fa-images mr-2"></i>3D Visual Archive</span>
+        <h2 class="section-title">CLEBSCH 3D IMMERSIVE GALLERY</h2>
+        <p class="section-subtitle">
+          Visual documentation of combat arena tests, autonomous swarm formations, LiDAR spatial mapping, and cleanroom lab prototypes.
+        </p>
+      </div>
+
+      <div class="gallery-grid">
+        <!-- 1. Bipedal Humanoid Robot Anatomy Breakdown -->
+        <div class="gallery-card tilt-card">
+          <div class="card-glare"></div>
+          <div class="gallery-img-wrap">
+            <span class="gallery-badge"><i class="fa-solid fa-robot mr-1"></i>HARDWARE ANATOMY</span>
+            <span class="gallery-cam-tag"><i class="fa-solid fa-circle mr-1" style="font-size: 5px; color: #10b981;"></i>HUMANOID-01</span>
+            <img src="assets/info-humanoid-anatomy.jpg" alt="Bipedal Humanoid Robot Anatomy Breakdown with Inset Callouts" class="lightbox-trigger" loading="lazy">
+          </div>
+          <div class="gallery-body">
+            <h3 class="gallery-title">Bipedal Humanoid Robot Anatomy</h3>
+            <p class="gallery-desc">
+              Comprehensive hardware breakdown detailing sensory head depth camera, CPU power motherboard, shoulder servo cluster, foot force sensors, and CNC 6061-T6 aluminum skeleton.
+            </p>
+            <div class="gallery-footer">
+              <span><i class="fa-solid fa-microchip mr-1"></i> 20-DOF ACTUATION</span>
+              <span>EXPLODED BOM</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. ISRO Chandrayaan-3 Pragyan Rover & Lander Ramp CAD -->
+        <div class="gallery-card tilt-card">
+          <div class="card-glare"></div>
+          <div class="gallery-img-wrap">
+            <span class="gallery-badge"><i class="fa-solid fa-shuttle-space mr-1"></i>ISRO SPACE CAD</span>
+            <span class="gallery-cam-tag"><i class="fa-solid fa-circle mr-1" style="font-size: 5px; color: #10b981;"></i>ISRO-02</span>
+            <img src="assets/gallery-cad-chandrayaan.jpg" alt="ISRO Chandrayaan-3 Pragyan Rover and Vikram Lander Ramp CAD" class="lightbox-trigger" loading="lazy">
+          </div>
+          <div class="gallery-body">
+            <h3 class="gallery-title">ISRO Chandrayaan-3 Pragyan Rover</h3>
+            <p class="gallery-desc">
+              Precision 3D mechanical CAD schematic of lunar lander deployment ramp, 6-wheel rocker-bogie chassis, solar array hinges, and APXS spectrometer payload.
+            </p>
+            <div class="gallery-footer">
+              <span><i class="fa-solid fa-satellite-dish mr-1"></i> FUSION 360 LUNAR</span>
+              <span>6WD ROCKER-BOGIE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. 5-Finger Humanoid Dexterous Robot Hand -->
+        <div class="gallery-card tilt-card">
+          <div class="card-glare"></div>
+          <div class="gallery-img-wrap">
+            <span class="gallery-badge"><i class="fa-solid fa-hand mr-1"></i>TENDON MECHANICS</span>
+            <span class="gallery-cam-tag"><i class="fa-solid fa-circle mr-1" style="font-size: 5px; color: #10b981;"></i>HAND-03</span>
+            <img src="assets/info-robot-hand.jpg" alt="5-Finger Humanoid Dexterous Robot Hand Mechanical Assembly" class="lightbox-trigger" loading="lazy">
+          </div>
+          <div class="gallery-body">
+            <h3 class="gallery-title">5-Finger Dexterous Robotic Hand</h3>
+            <p class="gallery-desc">
+              Biomimetic 16-DOF robotic hand anatomy showing micro brushless tendon routing, tactile fingertip load cells, magnetic rotary encoders, and adaptive haptic teleoperation.
+            </p>
+            <div class="gallery-footer">
+              <span><i class="fa-solid fa-hand-fist mr-1"></i> 16-DOF BIOMIMETIC</span>
+              <span>±0.02mm TACTILE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Heavy Combat Spinner Bot CAD -->
+        <div class="gallery-card tilt-card">
+          <div class="card-glare"></div>
+          <div class="gallery-img-wrap">
+            <span class="gallery-badge"><i class="fa-solid fa-cube mr-1"></i>3D CAD SCHEMATIC</span>
+            <span class="gallery-cam-tag"><i class="fa-solid fa-circle mr-1" style="font-size: 5px; color: #10b981;"></i>CAD-04</span>
+            <img src="assets/gallery-cad-pure-combat.jpg" alt="Heavyweight Combat Robot Kinetic Drum CAD Assembly" class="lightbox-trigger" loading="lazy">
+          </div>
+          <div class="gallery-body">
+            <h3 class="gallery-title">Apex Combat Kinetic Weapon Drum</h3>
+            <p class="gallery-desc">
+              Parametric CAD chassis assembly featuring 40 lbs S7 tool steel spinning drum at 10,000 RPM, HTD belt drive pulleys and Hardox-450 armor plates.
+            </p>
+            <div class="gallery-footer">
+              <span><i class="fa-solid fa-bolt mr-1"></i> HARDOX-450 CAD</span>
+              <span>28.0 kJ KINETIC</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Autonomous Drone Airframe CAD -->
+        <div class="gallery-card tilt-card">
+          <div class="card-glare"></div>
+          <div class="gallery-img-wrap">
+            <span class="gallery-badge"><i class="fa-solid fa-cube mr-1"></i>3D CAD SCHEMATIC</span>
+            <span class="gallery-cam-tag"><i class="fa-solid fa-circle mr-1" style="font-size: 5px; color: #10b981;"></i>CAD-05</span>
+            <img src="assets/gallery-cad-pure-drone.jpg" alt="Hexa-X1 Carbon Fiber Surveillance Drone CAD Assembly" class="lightbox-trigger" loading="lazy">
+          </div>
+          <div class="gallery-body">
+            <h3 class="gallery-title">Hexa-X1 Carbon Fiber UAV Airframe</h3>
+            <p class="gallery-desc">
+              Complete CAD exploded tree detailing 3K carbon arms, motor mounts, 4K camera gimbal, Cube Orange flight controller, and battery tray.
+            </p>
+            <div class="gallery-footer">
+              <span><i class="fa-solid fa-plane mr-1"></i> FUSION 360 UAV</span>
+              <span>RTK-GPS FIXED</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Mars Rover Rocker-Bogie CAD -->
+        <div class="gallery-card tilt-card">
+          <div class="card-glare"></div>
+          <div class="gallery-img-wrap">
+            <span class="gallery-badge"><i class="fa-solid fa-cube mr-1"></i>3D CAD SCHEMATIC</span>
+            <span class="gallery-cam-tag"><i class="fa-solid fa-circle mr-1" style="font-size: 5px; color: #10b981;"></i>CAD-06</span>
+            <img src="assets/gallery-cad-pure-rover.jpg" alt="Titan Planetary Exploration Rover CAD Assembly" class="lightbox-trigger" loading="lazy">
+          </div>
+          <div class="gallery-body">
+            <h3 class="gallery-title">Titan Planetary Rover Rocker-Bogie</h3>
+            <p class="gallery-desc">
+              Full kinematic CAD rocker-bogie suspension simulation, steering servos, stereo vision mast, and solar array deck engineering schematic.
+            </p>
+            <div class="gallery-footer">
+              <span><i class="fa-solid fa-satellite-dish mr-1"></i> PLANETARY CAD</span>
+              <span>6WD SLAM ROVER</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Explore More CAD & Microcontroller Library CTA Button -->
+      <div class="gallery-explore-cta" style="margin-top: 3.5rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.8rem;">
+        <a href="cad-gallery.html" target="_blank" rel="noopener noreferrer" class="cyber-btn cyber-btn-primary" style="display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.85rem 2.2rem; font-size: 0.95rem; border-radius: 999px; text-decoration: none; box-shadow: 0 0 25px rgba(16, 185, 129, 0.35);">
+          <i class="fa-solid fa-layer-group"></i>
+          <span>Explore Full 21+ Engineering Repository</span>
+          <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem; margin-left: 2px;"></i>
+        </a>
+        <p style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.05em;">
+          <i class="fa-solid fa-circle text-black mr-1" style="font-size: 6px; color: #10b981;"></i> Access Full Microcontrollers (Arduino, ESP32, ESP8266, Raspberry Pi, L298N), ISRO Space Missions &amp; Robotics Anatomies
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       EVENTS & HACKATHONS - 3D SPLINE BACKGROUND // COMING SOON
+       ======================================================================== -->
+  <section class="section events-spline-section" id="events">
+    <!-- Full-Section 3D Spline Background Canvas -->
+    <div class="events-spline-bg-container" id="events-spline-container">
+      <spline-viewer id="events-spline-viewer" data-url="https://prod.spline.design/2IHzW7caIQUXhmPv/scene.splinecode"></spline-viewer>
+      <div class="events-spline-overlay-gradient"></div>
+    </div>
+
+    <div class="events-content-container" style="max-width: 1440px; width: 94%; margin: 0 auto;">
+      <div class="section-header" style="margin-bottom: 1.2rem;">
+        <span class="section-tag"><i class="fa-solid fa-clock-rotate-left mr-2"></i>Schedules &amp; Conclaves</span>
+        <h2 class="section-title">UPCOMING CONCLAVES &amp; HACKATHONS</h2>
+        <p class="section-subtitle">
+          Official event calendars, tournament rulebooks, and battleground registrations are currently being finalized. Stay tuned for dates!
+        </p>
+        
+        <!-- Elevated Interactive 3D Hint Badge placed directly under Section Header -->
+        <div style="margin-top: 0.9rem; display: flex; justify-content: center;">
+          <div class="events-interactive-hint">
+            <i class="fa-solid fa-rocket mr-1"></i> INTERACTIVE 3D ARTEMIS // CLICK LAUNCH TO IGNITE
+          </div>
+        </div>
+      </div>
+
+      <!-- 2-Column Asymmetric Layout: Left (Open 3D Rocket & Launch Button Stage), Right (Conclave Info + Track Phases) -->
+      <div class="events-2col-layout">
+        
+        <!-- Left Open Interactive 3D Stage (Completely unobstructed for 3D Rocket & Glowing Launch Button) -->
+        <div class="events-rocket-stage" aria-label="Interactive 3D Rocket &amp; Launch Button Stage">
+          <!-- Empty transparent pass-through allowing 100% click/touch access to 3D scene -->
+        </div>
+
+        <!-- Right Side: Conclave Info + 3 Phase Tracks -->
+        <div class="events-info-sidebar">
+          
+          <!-- Main Conclave Info Card -->
+          <div class="events-hero-banner glass-panel">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.2rem;">
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: #10b981; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35); padding: 0.28rem 0.7rem; border-radius: 100px; display: inline-flex; align-items: center; gap: 0.4rem;">
+                <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 0.6rem;"></i>
+                COMING SOON
+              </span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">
+                <i class="fa-solid fa-calendar-check mr-1"></i> 2026-2027
+              </span>
+            </div>
+
+            <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--text-primary); margin: 0.3rem 0 0.5rem 0; line-height: 1.3;">
+              ANNUAL NATIONAL ROBOTICS CONCLAVE
+            </h3>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.55; margin: 0 0 1rem 0;">
+              The CLEBSCH Technical &amp; Operations Committee is structuring upcoming national battlegrounds including Combat RoboWars, Autonomous SLAM Maze, and Embedded ROS2 Hands-on Bootcamps.
+            </p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem;">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="cyber-btn cyber-btn-cyan" style="text-decoration: none; justify-content: center; font-size: 0.8rem; padding: 0.65rem 0.75rem;">
+                <i class="fa-brands fa-instagram mr-1"></i> Live Alerts
+              </a>
+              <a href="#contact" class="cyber-btn cyber-btn-outline" style="text-decoration: none; justify-content: center; font-size: 0.8rem; padding: 0.65rem 0.75rem;">
+                <i class="fa-solid fa-bullhorn mr-1"></i> Partner / Sponsor
+              </a>
+            </div>
+          </div>
+
+          <!-- 3 Upcoming Track Phases -->
+          <div class="events-phases-stack">
+            <!-- Phase 1 -->
+            <div class="event-card tilt-card glass-panel" style="padding: 1rem 1.2rem;">
+              <div class="card-glare"></div>
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
+                  <span class="event-date-badge" style="background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-size: 0.65rem; padding: 0.18rem 0.45rem;"><i class="fa-solid fa-hourglass-half mr-1"></i> ANNOUNCING SOON</span>
+                  <span class="font-mono text-xs text-muted">[PHASE 1]</span>
+                </div>
+                <h4 class="wing-title" style="font-size: 0.98rem; margin-bottom: 0.2rem;">National RoboWars Arena</h4>
+                <p class="wing-desc" style="font-size: 0.78rem; margin-bottom: 0.35rem; line-height: 1.4;">Heavyweight 15kg &amp; 60kg combat bots clashing inside our reinforced Lexan arena.</p>
+              </div>
+              <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 0.4rem; border-top: 1px solid var(--border-subtle);">
+                <span class="font-mono text-xs text-muted"><i class="fa-solid fa-shield mr-1"></i>PW IOI ARENA</span>
+                <span style="font-family: var(--font-mono); font-size: 0.7rem; color: #10b981; font-weight: 700;">Coming Soon</span>
+              </div>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="event-card tilt-card glass-panel" style="padding: 1rem 1.2rem;">
+              <div class="card-glare"></div>
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
+                  <span class="event-date-badge" style="background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-size: 0.65rem; padding: 0.18rem 0.45rem;"><i class="fa-solid fa-hourglass-half mr-1"></i> ANNOUNCING SOON</span>
+                  <span class="font-mono text-xs text-muted">[PHASE 2]</span>
+                </div>
+                <h4 class="wing-title" style="font-size: 0.98rem; margin-bottom: 0.2rem;">Autonomous SLAM Grand Prix</h4>
+                <p class="wing-desc" style="font-size: 0.78rem; margin-bottom: 0.35rem; line-height: 1.4;">Real-time 3D LiDAR spatial mapping, obstacle navigation &amp; autonomous speeds.</p>
+              </div>
+              <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 0.4rem; border-top: 1px solid var(--border-subtle);">
+                <span class="font-mono text-xs text-muted"><i class="fa-solid fa-microchip mr-1"></i>AI / AUTONOMY</span>
+                <span style="font-family: var(--font-mono); font-size: 0.7rem; color: #10b981; font-weight: 700;">Coming Soon</span>
+              </div>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="event-card tilt-card glass-panel" style="padding: 1rem 1.2rem;">
+              <div class="card-glare"></div>
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
+                  <span class="event-date-badge" style="background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-size: 0.65rem; padding: 0.18rem 0.45rem;"><i class="fa-solid fa-hourglass-half mr-1"></i> ANNOUNCING SOON</span>
+                  <span class="font-mono text-xs text-muted">[PHASE 3]</span>
+                </div>
+                <h4 class="wing-title" style="font-size: 0.98rem; margin-bottom: 0.2rem;">Winter ROS2 Bootcamp</h4>
+                <p class="wing-desc" style="font-size: 0.78rem; margin-bottom: 0.35rem; line-height: 1.4;">Multi-layer PCB routing, STM32 firmware architecture &amp; ROS2 simulation.</p>
+              </div>
+              <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 0.4rem; border-top: 1px solid var(--border-subtle);">
+                <span class="font-mono text-xs text-muted"><i class="fa-solid fa-code mr-1"></i>WORKSHOP</span>
+                <span style="font-family: var(--font-mono); font-size: 0.7rem; color: #10b981; font-weight: 700;">Coming Soon</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       CORE TEAM SECTION (ALL 7 CORE MEMBERS)
+       ======================================================================== -->
+  <section class="section" id="team">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag"><i class="fa-solid fa-user-astronaut mr-2"></i>Leadership Cadre</span>
+        <h2 class="section-title">CLEBSCH CORE LEADERSHIP</h2>
+        <p class="section-subtitle">
+          Meet the systems architects, mechanical designers, and AI researchers driving CLEBSCH's technological breakthroughs.
+        </p>
+      </div>
+
+      <!-- Team Filter -->
+      <div class="filter-bar">
+        <button class="filter-btn team-filter-btn active" data-filter="all">All Personnel (7)</button>
+        <button class="filter-btn team-filter-btn" data-filter="exec">Presidency &amp; Mentors</button>
+        <button class="filter-btn team-filter-btn" data-filter="tech-rd">Tech &amp; R&amp;D</button>
+        <button class="filter-btn team-filter-btn" data-filter="ops">Operations &amp; Lab</button>
+      </div>
+
+      <div class="team-grid">
+        <!-- 1. Pratik Kumar Verma - Club President -->
+        <div class="team-card tilt-card" data-wing="exec">
+          <div class="card-glare"></div>
+          
+          <div class="team-card-header">
+            <span class="team-id-badge"><i class="fa-solid fa-microchip"></i> CLB-EXEC-01</span>
+            <span class="team-status-chip"><span class="pulse-dot"></span> ACTIVE</span>
+          </div>
+
+          <div class="team-avatar-wrapper">
+            <div class="avatar-glow-ring"></div>
+            <div class="team-avatar-box">
+              <img src="assets/team-pratik.jpg?v=2.1" alt="Pratik Kumar Verma">
+            </div>
+          </div>
+
+          <div class="team-identity-block">
+            <span class="team-dept-badge">EXECUTIVE LEADERSHIP</span>
+            <h3 class="team-name">Pratik Kumar Verma</h3>
+            <span class="team-role"><i class="fa-solid fa-award"></i> Club President</span>
+          </div>
+
+          <p class="team-bio">Steering CLEBSCH's autonomous robotics initiatives, national championship expeditions, and strategic research partnerships.</p>
+
+          <div class="team-telemetry-row">
+            <div class="telemetry-item">
+              <span class="telemetry-label">INSTITUTE</span>
+              <span class="telemetry-val">PW IOI LUCKNOW</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">CLEARANCE</span>
+              <span class="telemetry-val">LVL 4 (COMMAND)</span>
+            </div>
+          </div>
+
+          <div class="team-actions-hub">
+            <a href="https://www.linkedin.com/in/pratik-kumar-verma-b402a1382/" target="_blank" rel="noopener noreferrer" class="team-action-btn btn-linkedin" title="LinkedIn Profile">
+              <i class="fa-brands fa-linkedin-in"></i>
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pratik.varma.sot25@pwioi.com" target="_blank" rel="noopener noreferrer" class="team-action-btn btn-email" title="Direct Email Transmission">
+              <i class="fa-solid fa-envelope"></i>
+              <span>Transmit</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 2. Gaurav Dey - Club Vice President -->
+        <div class="team-card tilt-card" data-wing="exec">
+          <div class="card-glare"></div>
+          
+          <div class="team-card-header">
+            <span class="team-id-badge"><i class="fa-solid fa-microchip"></i> CLB-EXEC-02</span>
+            <span class="team-status-chip"><span class="pulse-dot"></span> ACTIVE</span>
+          </div>
+
+          <div class="team-avatar-wrapper">
+            <div class="avatar-glow-ring"></div>
+            <div class="team-avatar-box">
+              <img src="assets/team-gaurav.jpg?v=2.1" alt="Gaurav Dey">
+            </div>
+          </div>
+
+          <div class="team-identity-block">
+            <span class="team-dept-badge">EXECUTIVE LEADERSHIP</span>
+            <h3 class="team-name">Gaurav Dey</h3>
+            <span class="team-role"><i class="fa-solid fa-award"></i> Club Vice President</span>
+          </div>
+
+          <p class="team-bio">Managing multi-departmental coordination, robotics fleet project lifecycles, and tactical competition strategy.</p>
+
+          <div class="team-telemetry-row">
+            <div class="telemetry-item">
+              <span class="telemetry-label">INSTITUTE</span>
+              <span class="telemetry-val">PW IOI LUCKNOW</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">CLEARANCE</span>
+              <span class="telemetry-val">LVL 4 (COMMAND)</span>
+            </div>
+          </div>
+
+          <div class="team-actions-hub">
+            <a href="https://www.linkedin.com/in/gaurav-dey-/" target="_blank" rel="noopener noreferrer" class="team-action-btn btn-linkedin" title="LinkedIn Profile">
+              <i class="fa-brands fa-linkedin-in"></i>
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=gaurav.dey.sot25@pwioi.com" target="_blank" rel="noopener noreferrer" class="team-action-btn btn-email" title="Direct Email Transmission">
+              <i class="fa-solid fa-envelope"></i>
+              <span>Transmit</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 3. Suryansh Yadav - Mentor -->
+        <div class="team-card tilt-card" data-wing="exec">
+          <div class="card-glare"></div>
+          
+          <div class="team-card-header">
+            <span class="team-id-badge"><i class="fa-solid fa-microchip"></i> CLB-ADV-03</span>
+            <span class="team-status-chip"><span class="pulse-dot"></span> ACTIVE</span>
+          </div>
+
+          <div class="team-avatar-wrapper">
+            <div class="avatar-glow-ring"></div>
+            <div class="team-avatar-box">
+              <img src="assets/team-suryansh.jpg" alt="Suryansh Yadav">
+            </div>
+          </div>
+
+          <div class="team-identity-block">
+            <span class="team-dept-badge">TECHNICAL ADVISOR</span>
+            <h3 class="team-name">Suryansh Yadav</h3>
+            <span class="team-role"><i class="fa-solid fa-brain"></i> Club Mentor</span>
+          </div>
+
+          <p class="team-bio">Providing high-level technical mentorship in kinematics, system dynamics, embedded architectures, and battle strategy.</p>
+
+          <div class="team-telemetry-row">
+            <div class="telemetry-item">
+              <span class="telemetry-label">INSTITUTE</span>
+              <span class="telemetry-val">PW IOI LUCKNOW</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">CLEARANCE</span>
+              <span class="telemetry-val">LVL 4 (ADVISORY)</span>
+            </div>
+          </div>
+
+          <div class="team-actions-hub">
+            <a href="https://www.linkedin.com/in/suryansh-yadav-873766252/" target="_blank" rel="noopener noreferrer" class="team-action-btn btn-linkedin" title="LinkedIn Profile">
+              <i class="fa-brands fa-linkedin-in"></i>
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pw.clebsch@gmail.com" target="_blank" rel="noopener noreferrer" class="team-action-btn btn-email" title="Direct Email Transmission">
+              <i class="fa-solid fa-envelope"></i>
+              <span>Transmit</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 4. Rashi Tiwari - Technical Department -->
+        <div class="team-card tilt-card" data-wing="tech-rd">
+          <div class="card-glare"></div>
+          
+          <div class="team-card-header">
+            <span class="team-id-badge"><i class="fa-solid fa-microchip"></i> CLB-TECH-04</span>
+            <span class="team-status-chip"><span class="pulse-dot"></span> ACTIVE</span>
+          </div>
+
+          <div class="team-avatar-wrapper">
+            <div class="avatar-glow-ring"></div>
+            <div class="team-avatar-box">
+              <img src="assets/team-rashi.jpg" alt="Rashi Tiwari">
+            </div>
+          </div>
+
+          <div class="team-identity-block">
+            <span class="team-dept-badge">TECH CORE</span>
+            <h3 class="team-name">Rashi Tiwari</h3>
+            <span class="team-role"><i class="fa-solid fa-bolt"></i> Technical Department</span>
+          </div>
+
+          <p class="team-bio">Leading embedded circuits, microcontroller firmware, sensor calibration, and real-time telemetry processing.</p>
+
+          <div class="team-telemetry-row">
+            <div class="telemetry-item">
+              <span class="telemetry-label">INSTITUTE</span>
+              <span class="telemetry-val">PW IOI LUCKNOW</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">CLEARANCE</span>
+              <span class="telemetry-val">LVL 3 (TECHNICAL)</span>
+            </div>
+          </div>
+
+          <div class="team-actions-hub">
+            <a href="https://www.linkedin.com/in/rashi-tiwari-bb4b86380?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="team-action-btn btn-linkedin" title="LinkedIn Profile">
+              <i class="fa-brands fa-linkedin-in"></i>
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rashi.tiwari.sot25@pwioi.com" target="_blank" rel="noopener noreferrer" class="team-action-btn btn-email" title="Direct Email Transmission">
+              <i class="fa-solid fa-envelope"></i>
+              <span>Transmit</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 5. Saloni Kumari - R&D Department -->
+        <div class="team-card tilt-card" data-wing="tech-rd">
+          <div class="card-glare"></div>
+          
+          <div class="team-card-header">
+            <span class="team-id-badge"><i class="fa-solid fa-microchip"></i> CLB-RD-05</span>
+            <span class="team-status-chip"><span class="pulse-dot"></span> ACTIVE</span>
+          </div>
+
+          <div class="team-avatar-wrapper">
+            <div class="avatar-glow-ring"></div>
+            <div class="team-avatar-box">
+              <img src="assets/team-saloni.jpg" alt="Saloni Kumari">
+            </div>
+          </div>
+
+          <div class="team-identity-block">
+            <span class="team-dept-badge">RESEARCH &amp; DEV</span>
+            <h3 class="team-name">Saloni Kumari</h3>
+            <span class="team-role"><i class="fa-solid fa-flask"></i> R&amp;D Department</span>
+          </div>
+
+          <p class="team-bio">Driving research into autonomous SLAM, AI vision algorithms, sensor fusion models, and innovative robot prototypes.</p>
+
+          <div class="team-telemetry-row">
+            <div class="telemetry-item">
+              <span class="telemetry-label">INSTITUTE</span>
+              <span class="telemetry-val">PW IOI LUCKNOW</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">CLEARANCE</span>
+              <span class="telemetry-val">LVL 3 (RESEARCH)</span>
+            </div>
+          </div>
+
+          <div class="team-actions-hub">
+            <a href="https://www.linkedin.com/in/saloni-kumari-11a361327/" target="_blank" rel="noopener noreferrer" class="team-action-btn btn-linkedin" title="LinkedIn Profile">
+              <i class="fa-brands fa-linkedin-in"></i>
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=saloni.kumari.sot25@pwioi.com" target="_blank" rel="noopener noreferrer" class="team-action-btn btn-email" title="Direct Email Transmission">
+              <i class="fa-solid fa-envelope"></i>
+              <span>Transmit</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 6. Bhoomika Pal - Support & Operation Executive -->
+        <div class="team-card tilt-card" data-wing="ops">
+          <div class="card-glare"></div>
+          
+          <div class="team-card-header">
+            <span class="team-id-badge"><i class="fa-solid fa-microchip"></i> CLB-OPS-06</span>
+            <span class="team-status-chip"><span class="pulse-dot"></span> ACTIVE</span>
+          </div>
+
+          <div class="team-avatar-wrapper">
+            <div class="avatar-glow-ring"></div>
+            <div class="team-avatar-box">
+              <img src="assets/team-bhoomika.jpg" alt="Bhoomika Pal">
+            </div>
+          </div>
+
+          <div class="team-identity-block">
+            <span class="team-dept-badge">OPERATIONS</span>
+            <h3 class="team-name">Bhoomika Pal</h3>
+            <span class="team-role"><i class="fa-solid fa-clipboard-check"></i> Support &amp; Operation Executive</span>
+          </div>
+
+          <p class="team-bio">Spearheading club operations, event administration, inter-college public relations, and resource management.</p>
+
+          <div class="team-telemetry-row">
+            <div class="telemetry-item">
+              <span class="telemetry-label">INSTITUTE</span>
+              <span class="telemetry-val">PW IOI LUCKNOW</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">CLEARANCE</span>
+              <span class="telemetry-val">LVL 3 (OPERATIONS)</span>
+            </div>
+          </div>
+
+          <div class="team-actions-hub">
+            <a href="https://www.linkedin.com/in/bhoomika-pal-061136388?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="team-action-btn btn-linkedin" title="LinkedIn Profile">
+              <i class="fa-brands fa-linkedin-in"></i>
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bhoomika.pal.soh25@pwioi.com" target="_blank" rel="noopener noreferrer" class="team-action-btn btn-email" title="Direct Email Transmission">
+              <i class="fa-solid fa-envelope"></i>
+              <span>Transmit</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 7. Anurag Kumar Jaiswara - Operations Coordinator (Lab) -->
+        <div class="team-card tilt-card" data-wing="ops">
+          <div class="card-glare"></div>
+          
+          <div class="team-card-header">
+            <span class="team-id-badge"><i class="fa-solid fa-microchip"></i> CLB-LAB-07</span>
+            <span class="team-status-chip"><span class="pulse-dot"></span> ACTIVE</span>
+          </div>
+
+          <div class="team-avatar-wrapper">
+            <div class="avatar-glow-ring"></div>
+            <div class="team-avatar-box">
+              <img src="assets/team-anurag.jpg" alt="Anurag Kumar Jaiswara">
+            </div>
+          </div>
+
+          <div class="team-identity-block">
+            <span class="team-dept-badge">LAB COORDINATION</span>
+            <h3 class="team-name">Anurag Kumar Jaiswara</h3>
+            <span class="team-role"><i class="fa-solid fa-wrench"></i> Operations Coordinator (Lab)</span>
+          </div>
+
+          <p class="team-bio">Managing the CLEBSCH Advanced Robotics Lab workspace, inventory, 3D printers, CNC tooling, and safety protocols.</p>
+
+          <div class="team-telemetry-row">
+            <div class="telemetry-item">
+              <span class="telemetry-label">INSTITUTE</span>
+              <span class="telemetry-val">PW IOI LUCKNOW</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">CLEARANCE</span>
+              <span class="telemetry-val">LVL 3 (LOGISTICS)</span>
+            </div>
+          </div>
+
+          <div class="team-actions-hub">
+            <a href="https://www.linkedin.com/in/anurag-kumar-jaiswara-aj" target="_blank" rel="noopener noreferrer" class="team-action-btn btn-linkedin" title="LinkedIn Profile">
+              <i class="fa-brands fa-linkedin-in"></i>
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=anurag.jaiswara.sot25@pwioi.com" target="_blank" rel="noopener noreferrer" class="team-action-btn btn-email" title="Direct Email Transmission">
+              <i class="fa-solid fa-envelope"></i>
+              <span>Transmit</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       ENHANCED CONTACT US & DIRECT COMMUNICATIONS SECTION
+       ======================================================================== -->
+  <section class="section contact-spline-section" id="contact">
+    <!-- Full-Section 3D Spline Background Canvas -->
+    <div class="contact-spline-bg-container" id="contact-spline-container">
+      <spline-viewer id="contact-spline-viewer" data-url="https://prod.spline.design/IZ70Y4yVxpLruIgE/scene.splinecode"></spline-viewer>
+      <div class="contact-spline-overlay-gradient"></div>
+    </div>
+
+    <div class="contact-content-container" style="max-width: 1440px; width: 94%; margin: 0 auto;">
+      <div class="section-header" style="margin-bottom: 2rem;">
+        <span class="section-tag"><i class="fa-solid fa-tower-broadcast mr-2"></i>Direct Telemetry &amp; Inquiries</span>
+        <h2 class="section-title">CONNECT WITH CLEBSCH</h2>
+        <p class="section-subtitle">
+          Have research inquiries, sponsorship proposals, or want to collaborate with our engineering team? Transmit your telemetry packet below.
+        </p>
+      </div>
+
+      <div class="contact-layout-grid">
+        <!-- Left Floating Compact Details Panel -->
+        <div class="contact-info-panel compact-panel">
+          <a href="https://maps.google.com/?q=PW+Institute+of+Innovation+Platinum+Mall+Lucknow" target="_blank" rel="noopener noreferrer" class="contact-channel-card glass-panel" title="Open Lab Headquarters on Google Maps" style="text-decoration: none;">
+            <div class="channel-icon-box">
+              <i class="fa-solid fa-location-dot text-emerald-400"></i>
+            </div>
+            <div>
+              <h4 class="channel-title">Headquarters <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-1 text-emerald-400" style="font-size: 0.7rem;"></i></h4>
+              <p class="channel-text">
+                Advanced Robotics &amp; Autonomous Systems Lab<br>
+                <strong>PW IOI, Platinum Mall, Lucknow</strong>
+              </p>
+            </div>
+          </a>
+
+          <div class="contact-channel-card glass-panel">
+            <div class="channel-icon-box">
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+            <div>
+              <h4 class="channel-title">Official Inquiries</h4>
+              <p class="channel-text">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pw.clebsch@gmail.com" target="_blank" rel="noopener noreferrer" class="text-emerald-400 font-mono font-bold">pw.clebsch@gmail.com</a>
+              </p>
+            </div>
+          </div>
+
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="contact-channel-card glass-panel" title="Follow Official Instagram" style="text-decoration: none; cursor: pointer;">
+            <div class="channel-icon-box" style="background: #000000; color: #ffffff;">
+              <i class="fa-brands fa-instagram"></i>
+            </div>
+            <div>
+              <h4 class="channel-title">Official Instagram <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-1 text-emerald-400" style="font-size: 0.7rem;"></i></h4>
+              <p class="channel-text">
+                Follow our official Instagram for lab updates, robot reels &amp; live builds.
+              </p>
+            </div>
+          </a>
+
+          <!-- Clickable Geolocation Coordinate Badge to Google Maps -->
+          <a href="https://maps.google.com/?q=PW+Institute+of+Innovation+Platinum+Mall+Lucknow" target="_blank" rel="noopener noreferrer" class="glass-panel" style="border: 1px dashed rgba(16, 185, 129, 0.6); border-radius: 12px; padding: 0.75rem 1.1rem; display: flex; justify-content: space-between; align-items: center; text-decoration: none; cursor: pointer; transition: all 0.25s ease;" title="Click to View PW IOI Lucknow on Google Maps">
+            <span class="font-mono text-xs text-muted" style="font-weight: 600;"><i class="fa-solid fa-location-crosshairs mr-1 text-emerald-400"></i>26.9142°N, 80.9168°E</span>
+            <span class="font-mono text-xs text-emerald-400 font-bold"><i class="fa-solid fa-map-location-dot mr-1"></i>[PW IOI LUCKNOW] <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i></span>
+          </a>
+        </div>
+
+        <!-- Center Open Area (Empty for full visibility of 3D Robot) -->
+        <div class="contact-center-space" aria-hidden="true"></div>
+
+        <!-- Right Floating Compact Form Card -->
+        <div class="contact-form-card glass-panel compact-form">
+          <h3 class="font-bold text-lg mb-1" style="color: var(--text-primary);"><i class="fa-solid fa-paper-plane mr-2 text-emerald-400"></i> TRANSMIT PACKET</h3>
+          <p class="text-muted text-xs mb-3">Direct uplink to CLEBSCH Core R&amp;D team.</p>
+
+          <form id="clebsch-contact-form">
+            <div class="form-group mb-2">
+              <label class="form-label text-xs" for="contact-name">Your Full Name</label>
+              <input type="text" id="contact-name" class="cyber-input py-2 text-xs" placeholder="e.g. Elena Rostova" required>
+            </div>
+            <div class="form-group mb-2">
+              <label class="form-label text-xs" for="contact-email">Email Address</label>
+              <input type="email" id="contact-email" class="cyber-input py-2 text-xs" placeholder="e.g. elena@institution.edu" required>
+            </div>
+
+            <div class="form-group mb-2">
+              <label class="form-label text-xs" for="contact-subject">Inquiry Subject</label>
+              <select id="contact-subject" class="cyber-select py-2 text-xs" required>
+                <option value="Research &amp; Sponsorship">Research Collaboration &amp; Sponsorship</option>
+                <option value="Combat Robotics">Combat Robotics Fleet (RoboWars)</option>
+                <option value="Autonomous &amp; SLAM">Autonomous Systems / ROS2 SLAM</option>
+                <option value="Robo-Soccer">Autonomous Robo-Soccer World Cup</option>
+                <option value="General Query">General Query / Student Outreach</option>
+              </select>
+            </div>
+
+            <div class="form-group mb-3">
+              <label class="form-label text-xs" for="contact-msg">Message &amp; Project Details</label>
+              <textarea id="contact-msg" class="cyber-textarea py-2 text-xs" rows="3" placeholder="Type your inquiry or proposal..." required></textarea>
+            </div>
+
+            <button type="submit" class="cyber-btn cyber-btn-cyan w-full py-2 text-xs">
+              <i class="fa-solid fa-satellite-dish mr-2"></i> Send Secure Message
+            </button>
+          </form>
+
+          <div id="contact-result-box" style="display: none;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       INTERACTIVE CYBER TERMINAL & RECRUITMENT INTAKE
+       ======================================================================== -->
+  <section class="section" id="terminal">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag"><i class="fa-solid fa-terminal mr-2"></i>Command Interface</span>
+        <h2 class="section-title">CYBER TERMINAL &amp; INTAKE</h2>
+        <p class="section-subtitle">
+          Interact with CLEBSCH OS directly through our CLI terminal emulator or submit your cadet application below.
+        </p>
+      </div>
+
+      <div class="join-grid" id="join">
+        <div class="terminal-window">
+          <div class="terminal-top-bar">
+            <div class="term-dots">
+              <span class="term-dot"></span>
+              <span class="term-dot"></span>
+              <span class="term-dot"></span>
+            </div>
+            <span class="term-title">clebsch-core-node: /dev/ttyS0</span>
+            <a href="terminal.html" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-silver" style="text-decoration: none; color: #10b981; display: inline-flex; align-items: center; gap: 0.3rem;" title="Open Dedicated Fullscreen Terminal"><i class="fa-solid fa-up-right-from-square"></i> FULLSCREEN</a>
+          </div>
+
+          <div class="terminal-body" id="terminal-output"></div>
+
+          <div class="term-quick-btns">
+            <span class="font-mono text-xs text-muted mr-2" style="align-self: center;">Quick:</span>
+            <button type="button" class="term-quick-cmd" data-cmd="help">help</button>
+            <button type="button" class="term-quick-cmd" data-cmd="about">about</button>
+            <button type="button" class="term-quick-cmd" data-cmd="wings">wings</button>
+            <button type="button" class="term-quick-cmd" data-cmd="projects">projects</button>
+            <button type="button" class="term-quick-cmd" data-cmd="events">events</button>
+            <button type="button" class="term-quick-cmd" data-cmd="team">team</button>
+            <button type="button" class="term-quick-cmd" data-cmd="specs">specs</button>
+            <button type="button" class="term-quick-cmd" data-cmd="ping">ping</button>
+            <button type="button" class="term-quick-cmd" data-cmd="matrix">matrix</button>
+            <button type="button" class="term-quick-cmd" data-cmd="join">join</button>
+            <button type="button" class="term-quick-cmd" data-cmd="clear">clear</button>
+          </div>
+
+          <form class="terminal-form" id="terminal-form">
+            <span class="term-prompt">guest@clebsch:~$</span>
+            <input type="text" class="term-input" id="terminal-input" placeholder="Type a command (e.g. 'help', 'apply')..." autocomplete="off">
+          </form>
+        </div>
+
+        <div class="intake-form-box">
+          <h3 style="font-size: 1.4rem; margin-bottom: 0.5rem;" class="text-black">
+            <i class="fa-solid fa-user-plus mr-2"></i> JOIN CLEBSCH ROBOTICS
+          </h3>
+          <p class="text-muted text-sm mb-4">
+            Recruitment is open for all passionate coders, CAD designers, circuit builders, and robotics enthusiasts.
+          </p>
+
+          <form id="clebsch-join-form">
+            <div class="form-group">
+              <label class="form-label" for="join-name">Full Name</label>
+              <input type="text" id="join-name" class="cyber-input" placeholder="e.g. Alex Rivera" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="join-email">Collegiate / Contact Email</label>
+              <input type="email" id="join-email" class="cyber-input" placeholder="e.g. cadet@university.edu" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="join-wing">Preferred Technical Wing</label>
+              <select id="join-wing" class="cyber-select" required>
+                <option value="autonomous">Autonomous Systems &amp; ROS2</option>
+                <option value="combat">Heavyweight Combat Robotics</option>
+                <option value="soccer">Autonomous Robo-Soccer</option>
+                <option value="ai">AI &amp; Personal Assistants</option>
+                <option value="drones">UAV &amp; Aerial Robotics</option>
+                <option value="embedded">Embedded Systems &amp; PCB Design</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="join-exp">Technical Background / Projects</label>
+              <textarea id="join-exp" class="cyber-textarea" rows="3" placeholder="Briefly describe your programming, CAD, or hands-on hardware experience..."></textarea>
+            </div>
+
+            <button type="submit" class="cyber-btn cyber-btn-cyan w-full">
+              <i class="fa-solid fa-paper-plane mr-2"></i> Transmit Recruitment Packet
+            </button>
+          </form>
+
+          <div id="join-result-box" style="display: none; margin-top: 1.5rem;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="cyber-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand-logo mb-2">
+            <img src="assets/clebsch-icon-light.png" alt="Clebsch Robotics Logo" class="brand-logo-img logo-light">
+            <img src="assets/clebsch-icon-dark.png" alt="Clebsch Robotics Logo" class="brand-logo-img logo-dark">
+            <span>CLEBSCH</span>
+          </div>
+          <p class="text-muted text-sm" style="line-height: 1.6; max-width: 320px;">
+            The official collegiate robotics research collective at PW IOI, Lucknow. Designing the future of autonomous systems, combat machines, and high-performance engineering.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-black text-sm font-mono mb-2" style="letter-spacing: 0.1em; font-weight: 700;">NAVIGATION</h4>
+          <ul style="list-style: none; font-size: 0.88rem; display: flex; flex-direction: column; gap: 0.5rem;">
+            <li><a href="#about" class="text-muted hover:text-black">About Us</a></li>
+            <li><a href="#robot-lab" class="text-muted hover:text-black">3D Robot Lab</a></li>
+            <li><a href="#projects" class="text-muted hover:text-black">Prototypes Fleet</a></li>
+            <li><a href="#gallery" class="text-muted hover:text-black">3D Gallery</a></li>
+            <li><a href="#events" class="text-muted hover:text-black">Events &amp; Conclaves</a></li>
+            <li><a href="#team" class="text-muted hover:text-black">Core Leadership</a></li>
+            <li><a href="#contact" class="text-muted hover:text-black">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-black text-sm font-mono mb-2" style="letter-spacing: 0.1em; font-weight: 700;">LAB LOCATION</h4>
+          <p class="text-muted text-sm" style="line-height: 1.6;">
+            Advanced Robotics Lab<br>
+            <a href="https://maps.google.com/?q=PW+Institute+of+Innovation+Platinum+Mall+Lucknow" target="_blank" rel="noopener noreferrer" class="text-black hover:text-emerald-500" style="text-decoration: none; font-weight: 700;" title="View PW IOI on Google Maps">
+              <i class="fa-solid fa-location-dot text-emerald-500 mr-1"></i>PW IOI, Platinum Mall, Lucknow <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1 opacity-70"></i>
+            </a><br>
+            Email: <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pw.clebsch@gmail.com" target="_blank" rel="noopener noreferrer" class="text-black font-mono font-bold">pw.clebsch@gmail.com</a>
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-black text-sm font-mono mb-2" style="letter-spacing: 0.1em; font-weight: 700;">COMMUNICATIONS</h4>
+          <div class="team-socials mt-2">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/pratik-kumar-verma-b402a1382/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn" title="Pratik Kumar Verma - President LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Instagram" title="CLEBSCH Instagram"><i class="fa-brands fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 CLEBSCH ROBOTICS CLUB. ALL RIGHTS RESERVED.</span>
+        <span class="text-muted"><i class="fa-solid fa-circle text-black mr-2" style="font-size: 5px;"></i>SYSTEM HEALTH: 100% OPERATIONAL</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       MODALS: PROJECT BLUEPRINT & EVENT REGISTRATION
+       ======================================================================== -->
+  <!-- Project Blueprint Modal -->
+  <div class="cyber-modal" id="blueprint-modal">
+    <div class="modal-content">
+      <button class="modal-close-btn" id="blueprint-modal-close" aria-label="Close Modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <span class="section-tag" id="blueprint-category">Robotics Category</span>
+      <h3 style="font-size: 1.6rem; margin: 0.5rem 0 1rem; color: #ffffff;" id="blueprint-title">PROJECT BLUEPRINT</h3>
+      <p class="text-secondary text-sm mb-4" id="blueprint-desc">Description</p>
+
+      <h4 style="font-weight: 700; color: #ffffff; font-family: var(--font-mono); font-size: 0.8rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-sliders mr-2"></i>ENGINEERING SPECIFICATIONS</h4>
+      <div id="blueprint-specs-list" class="mb-4"></div>
+
+      <h4 style="font-weight: 700; color: #9e9ea8; font-family: var(--font-mono); font-size: 0.8rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-list-check mr-2"></i>BILL OF MATERIALS &amp; CORE MODULES</h4>
+      <ul id="blueprint-bom-list" style="padding-left: 0;"></ul>
+
+      <h4 style="font-weight: 700; color: #10b981; font-family: var(--font-mono); font-size: 0.8rem; margin: 1rem 0 0.5rem;"><i class="fa-solid fa-download mr-2"></i>AVAILABLE ENGINEERING FORMATS</h4>
+      <div id="blueprint-formats-list" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.5rem;"></div>
+    </div>
+  </div>
+
+  <!-- Event Registration Modal -->
+  <div class="cyber-modal" id="event-reg-modal">
+    <div class="modal-content">
+      <button class="modal-close-btn" id="event-modal-close" aria-label="Close Modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <span class="section-tag"><i class="fa-solid fa-id-badge mr-2"></i>Security Clearance Pass</span>
+      <h3 style="font-size: 1.5rem; margin: 0.5rem 0 1rem; color: #ffffff;" id="event-reg-name">Event Registration</h3>
+
+      <form id="event-reg-form">
+        <div class="form-group">
+          <label class="form-label" for="reg-user-name">Captain / Participant Name</label>
+          <input type="text" id="reg-user-name" class="cyber-input" placeholder="e.g. Elena Rostova" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reg-user-email">Email Address</label>
+          <input type="email" id="reg-user-email" class="cyber-input" placeholder="e.g. captain@team.org" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reg-user-team">Team / Institution Name</label>
+          <input type="text" id="reg-user-team" class="cyber-input" placeholder="e.g. Team Vortex Cybernetics">
+        </div>
+        <button type="submit" class="cyber-btn cyber-btn-cyan w-full mt-2">
+          <i class="fa-solid fa-shield-halved mr-2"></i> Generate Official Entry Clearance Pass
+        </button>
+      </form>
+
+      <div id="event-pass-result" style="display: none; margin-top: 1.5rem;"></div>
+    </div>
+  </div>
+
+  <!-- Fullscreen Image Lightbox Modal -->
+  <div class="cad-lightbox-modal" id="main-lightbox" style="position: fixed; inset: 0; background: rgba(0, 0, 0, 0.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 1.5rem;">
+    <button class="modal-close-btn" id="main-lightbox-close" aria-label="Close Lightbox" style="position: absolute; top: 1.5rem; right: 2rem; width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: #ffffff; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <img src="" alt="Fullscreen CAD Schematic" id="main-lightbox-img" style="max-width: 90vw; max-height: 80vh; object-fit: contain; border-radius: 10px; border: 1px solid rgba(16, 185, 129, 0.4); box-shadow: 0 0 40px rgba(0,0,0,0.8), 0 0 30px rgba(16, 185, 129, 0.25);">
+    <div id="main-lightbox-caption" style="margin-top: 1.2rem; color: #ffffff; font-family: var(--font-mono); font-size: 1.05rem; font-weight: 700; text-align: center; letter-spacing: 0.05em;"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/audio-sfx.js?v=2.0"></script>
+  <script src="js/spline-scene.js?v=5.0"></script>
+  <script src="js/robot-lab.js?v=4.0"></script>
+  <script src="js/terminal.js?v=2.0"></script>
+  <script src="js/app.js?v=17.0"></script>
 </body>
 </html>

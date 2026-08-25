@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" width="100%" height="100%">
+  <defs>
+    <!-- Monochrome Gradients -->
+    <radialGradient id="arm-ambient" cx="50%" cy="45%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="60%" stop-color="#0f172a" stop-opacity="0.0"/>
+    </radialGradient>
+    <linearGradient id="arm-carbon-link" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#090d16"/>
+    </linearGradient>
+    <linearGradient id="arm-silver-joint" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="40%" stop-color="#cbd5e1"/>
+      <stop offset="100%" stop-color="#64748b"/>
+    </linearGradient>
+    <radialGradient id="arm-crystal" cx="40%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#cbd5e1"/>
+      <stop offset="100%" stop-color="#475569"/>
+    </radialGradient>
+
+    <!-- Filters -->
+    <filter id="glow-white" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="shadow-deep" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient Backdrop -->
+  <rect x="0" y="0" width="600" height="360" fill="url(#arm-ambient)"/>
+
+  <!-- Kinematic Reach Envelope & Arc Grids in White/Gray -->
+  <g opacity="0.3">
+    <path d="M 160 280 A 190 190 0 0 1 470 120" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="6,8"/>
+    <path d="M 190 280 A 140 140 0 0 1 420 160" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,6"/>
+    <line x1="50" y1="280" x2="550" y2="280" stroke="#ffffff" stroke-width="1" stroke-dasharray="4,6" opacity="0.3"/>
+  </g>
+
+  <!-- Base Shadow -->
+  <ellipse cx="220" cy="302" rx="130" ry="18" fill="#000000" opacity="0.75"/>
+
+  <!-- Main Manipulator Arm Assembly in White/Gray -->
+  <g filter="url(#shadow-deep)">
+    <!-- Base Turret (Joint 1 / Waist) -->
+    <rect x="150" y="270" width="140" height="32" rx="8" fill="url(#arm-carbon-link)" stroke="#ffffff" stroke-width="2"/>
+    <circle cx="220" cy="270" r="22" fill="#0f172a" stroke="url(#arm-silver-joint)" stroke-width="3" filter="url(#glow-white)"/>
+    <circle cx="220" cy="270" r="8" fill="#ffffff"/>
+
+    <!-- Hydraulic Cable Lines -->
+    <path d="M 220 270 Q 210 200 260 168 Q 300 135 375 115" fill="none" stroke="#64748b" stroke-width="3" stroke-dasharray="2,2"/>
+
+    <!-- Shoulder Link (Joint 2) -->
+    <line x1="220" y1="270" x2="265" y2="165" stroke="#1e293b" stroke-width="20" stroke-linecap="round"/>
+    <line x1="220" y1="270" x2="265" y2="165" stroke="#475569" stroke-width="12" stroke-linecap="round"/>
+    <line x1="220" y1="270" x2="265" y2="165" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+    
+    <!-- Joint 2 Harmonic Drive Casing -->
+    <circle cx="265" cy="165" r="20" fill="#0f172a" stroke="url(#arm-silver-joint)" stroke-width="3" filter="url(#glow-white)"/>
+    <circle cx="265" cy="165" r="7" fill="#ffffff"/>
+
+    <!-- Elbow Forearm Link (Joint 3) -->
+    <line x1="265" y1="165" x2="380" y2="115" stroke="#1e293b" stroke-width="15" stroke-linecap="round"/>
+    <line x1="265" y1="165" x2="380" y2="115" stroke="#475569" stroke-width="8" stroke-linecap="round"/>
+    <line x1="265" y1="165" x2="380" y2="115" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+    
+    <!-- Joint 3 Harmonic Casing -->
+    <circle cx="380" cy="115" r="17" fill="#0f172a" stroke="url(#arm-silver-joint)" stroke-width="3" filter="url(#glow-white)"/>
+    <circle cx="380" cy="115" r="6" fill="#ffffff"/>
+
+    <!-- Wrist Pitch/Roll Link (Joints 4 & 5) -->
+    <line x1="380" y1="115" x2="445" y2="142" stroke="#1e293b" stroke-width="11" stroke-linecap="round"/>
+    <circle cx="445" cy="142" r="13" fill="#0f172a" stroke="url(#arm-silver-joint)" stroke-width="2.5"/>
+
+    <!-- 2-Finger Precision Micro End-Effector Gripper (Joint 6) -->
+    <path d="M 445 142 L 476 122 L 502 130" fill="none" stroke="url(#arm-silver-joint)" stroke-width="4.5" stroke-linecap="round" filter="url(#glow-white)"/>
+    <path d="M 445 142 L 476 162 L 502 154" fill="none" stroke="url(#arm-silver-joint)" stroke-width="4.5" stroke-linecap="round" filter="url(#glow-white)"/>
+
+    <!-- Optical Quantum Crystal Held in Gripper -->
+    <polygon points="502,142 516,132 528,142 516,152" fill="url(#arm-crystal)" stroke="#ffffff" stroke-width="1.5" filter="url(#glow-white)"/>
+
+    <!-- Laser Alignment Focal Reticle in White/Silver -->
+    <g filter="url(#glow-white)">
+      <line x1="528" y1="142" x2="570" y2="142" stroke="#ffffff" stroke-width="2" stroke-dasharray="3,3"/>
+      <circle cx="570" cy="142" r="4" fill="#ffffff"/>
+    </g>
+  </g>
+</svg>
